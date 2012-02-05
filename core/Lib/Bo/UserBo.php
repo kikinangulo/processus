@@ -125,26 +125,26 @@ namespace Processus\Lib\Bo
          */
         public function isAuthorized()
         {
+
+            $isInMySql = $this->_isInMySqlTable();
+
+            if (count($isInMySql) == 1) {
+                return TRUE;
+            }
+
             $fbUserId = $this->getFacebookUserId();
 
             if ($fbUserId) {
 
-                $userData  = $this->getFacebookUserMvo()->getData();
-                $isInMySql = $this->_isInMySqlTable();
-
-                if (count($isInMySql) == 1)
-                {
-                    return TRUE;
-                }
+                $mvo      = $this->getFacebookUserMvo();
+                $userData = $mvo->getData();
 
                 $fbClient          = $this->getProcessusContext()->getFacebookClient();
                 $fbData            = $fbClient->getUserDataById($fbUserId);
                 $fbData['created'] = convertUnixTimeToIso(time());
-                $this->getFacebookUserMvo()->setData($fbData)
-                    ->setMemId($this->getProcessusContext()->getUserBo()->getFacebookUserId())
-                    ->saveInMem();
 
-                $this->getUserManager()->insertNewUser($this->getFacebookUserMvo());
+                $resultCode = $mvo->setData($fbData)->saveInMem();
+                $this->getUserManager()->insertNewUser($mvo);
 
                 return TRUE;
             }
@@ -164,6 +164,7 @@ namespace Processus\Lib\Bo
             $sqlParams = array(
                 "fb_id" => $this->getProcessusContext()->getUserBo()->getFacebookUserId(),
             );
+
             $userData = $mysql->fetchAll($sqlStmt, $sqlParams);
             return $userData;
         }

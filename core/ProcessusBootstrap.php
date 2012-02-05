@@ -205,8 +205,7 @@ namespace Processus
 
                 $lastError['data'] = $lastError;
 
-                $error['debug'] = $debug;
-
+                $error['debug']     = $debug;
                 $error['user']      = $user;
                 $error['lasterror'] = $lastError;
 
@@ -235,12 +234,12 @@ namespace Processus
             if ($errorObj instanceof \RuntimeException) {
                 header('HTTP/1.1 500 Internal Server Error');
 
-                $debug            = array();
-                $debug['_id']     = uniqid();
-                $debug['file']    = $errorObj->getFile();
-                $debug['line']    = $errorObj->getLine();
-                $debug['message'] = $errorObj->getMessage();
-                $debug['trace']   = $errorObj->getTraceAsString();
+                $debug              = array();
+                $debug['_id']       = uniqid();
+                $debug['file']      = $errorObj->getFile();
+                $debug['line']      = $errorObj->getLine();
+                $debug['message']   = $errorObj->getMessage();
+                $debug['trace']     = $errorObj->getTraceAsString();
 
                 $returnValue['error'] = $debug;
                 echo json_encode($returnValue);

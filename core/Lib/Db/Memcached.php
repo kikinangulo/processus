@@ -19,7 +19,7 @@ namespace Processus\Lib\Db
         public function __construct(string $host, string $port, $id = "default")
         {
             $this->_memcachedClient = new \Memcached($id);
-            $this->_memcachedClient->setOption(\Memcached::OPT_SERIALIZER, \Memcached::SERIALIZER_IGBINARY);
+            $this->_memcachedClient->setOption(\Memcached::OPT_COMPRESSION,false);
             $this->_memcachedClient->addServer($host, $port);
         }
 

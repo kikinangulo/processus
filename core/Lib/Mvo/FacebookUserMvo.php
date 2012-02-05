@@ -19,9 +19,23 @@ namespace Processus\Lib\Mvo
                 ->getRegistry()
                 ->getProcessusConfig()
                 ->getCouchbaseConfig()
-                ->getCouchbasePortByDatabucketKey("fbusers");
+                ->getCouchbasePortByDatabucketKey("default");
 
             return $config['port'];
+        }
+
+        /**
+         * @return mixed
+         */
+        protected function getMembaseHost()
+        {
+            $config = $this->getProcessusContext()
+                ->getRegistry()
+                ->getProcessusConfig()
+                ->getCouchbaseConfig()
+                ->getCouchbasePortByDatabucketKey("default");
+
+            return $config['host'];
         }
 
         /**
@@ -68,7 +82,7 @@ namespace Processus\Lib\Mvo
          */
         public function isFirstTime()
         {
-            return $this->getValueByKey('firstTime');
+            return $this->getValueByKey("firstTime");
         }
 
         /**

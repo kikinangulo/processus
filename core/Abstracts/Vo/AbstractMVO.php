@@ -187,17 +187,29 @@ namespace Processus\Abstracts\Vo {
         /**
          * @return string
          */
-        protected function getMembaseHost()
+        protected function getDataBucketPort()
         {
-            return "127.0.0.1";
+            $config = $this->getProcessusContext()
+                ->getRegistry()
+                ->getProcessusConfig()
+                ->getCouchbaseConfig()
+                ->getCouchbasePortByDatabucketKey("default");
+
+            return $config['port'];
         }
 
         /**
-         * @return string
+         * @return mixed
          */
-        protected function getDataBucketPort()
+        protected function getMembaseHost()
         {
-            return "11211";
+            $config = $this->getProcessusContext()
+                ->getRegistry()
+                ->getProcessusConfig()
+                ->getCouchbaseConfig()
+                ->getCouchbasePortByDatabucketKey("default");
+
+            return $config['host'];
         }
 
         /**

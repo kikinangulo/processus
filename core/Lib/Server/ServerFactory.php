@@ -37,11 +37,10 @@ namespace Processus\Lib\Server
         {
             $poolKey = md5($host . $port . $id);
 
-            if (array_key_exists($poolKey, self::$_couchbasePool) === FALSE) {
-
+            if (array_key_exists($poolKey, self::$_couchbasePool) === FALSE) 
+            {
                 $memcached                      = new Memcached($host, $port, $poolKey);
                 self::$_couchbasePool[$poolKey] = $memcached;
-
             }
 
             return self::$_couchbasePool[$poolKey];
