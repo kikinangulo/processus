@@ -128,13 +128,15 @@ namespace Processus\Lib\Bo
 
             $isInMySql = $this->_isInMySqlTable();
 
-            if (count($isInMySql) == 1) {
+            if (count($isInMySql) == 1)
+            {
                 return TRUE;
             }
 
             $fbUserId = $this->getFacebookUserId();
 
-            if ($fbUserId) {
+            if ($fbUserId)
+            {
 
                 $mvo      = $this->getFacebookUserMvo();
                 $userData = $mvo->getData();

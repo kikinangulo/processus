@@ -42,7 +42,7 @@ namespace Processus\Abstracts\JsonRpc
             }
 
             // throw new Exception
-            return FALSE;
+            throw new \Exception("Not Enabled!", 1);
         }
 
         // #########################################################
@@ -58,7 +58,7 @@ namespace Processus\Abstracts\JsonRpc
             }
 
             // throw new Exception
-            return FALSE;
+            throw new \Exception("No Namespace!", 1);
         }
 
         // #########################################################
@@ -99,7 +99,7 @@ namespace Processus\Abstracts\JsonRpc
             }
 
             // throw new Exception
-            return FALSE;
+            throw new \Exception("Not a valid request!", 1);
         }
 
         // #########################################################
@@ -225,7 +225,8 @@ namespace Processus\Abstracts\JsonRpc
             $authFile   = str_replace("\\", "/", $this->getConfigValue('namespace') . "\\" . "Auth");
             $classExist = file_exists(PATH_APP . "/" . $authFile . '.php');
 
-            if ($classExist) {
+            if ($classExist)
+            {
 
                 try {
 
@@ -234,7 +235,8 @@ namespace Processus\Abstracts\JsonRpc
                     $this->_authModule->setAuthData($this->getRequest());
 
                     return $this->_authModule;
-                } catch (\Exception $error)
+                }
+                catch (\Exception $error)
                 {
                     throw $error;
                 }
@@ -254,7 +256,8 @@ namespace Processus\Abstracts\JsonRpc
          */
         private function validateConfigKey($key = NULL)
         {
-            if (array_key_exists($key, $this->getConfig())) {
+            if (array_key_exists($key, $this->getConfig()))
+            {
                 return TRUE;
             }
 
