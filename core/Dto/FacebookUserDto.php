@@ -16,7 +16,7 @@ namespace Processus\Dto
         /**
          * @see Processus\Abstracts\Vo.AbstractDTO::getMapping()
          */
-        protected function getMapping ()
+        protected function _getMapping ()
         {
             return array(
                 
