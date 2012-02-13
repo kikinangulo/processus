@@ -20,12 +20,34 @@ namespace Processus\Lib\Profiler
         }
 
         /**
+         * @return array|mixed
+         */
+        public function getStartTime()
+        {
+            return $this->getValueByKey('startTimeTrack');
+        }
+
+        /**
          * @return \Processus\Lib\Profiler\ProcessusDebugProfilerVo
          */
         public function endTimeTrack()
         {
             $this->setValueByKey("endTimeTrack", (float)array_sum(explode(' ', microtime())));
+
+            $startTime = $this->getStartTime();
+            $endTime   = $this->getEndTime();
+
+            $this->setValueByKey('duration', round(($endTime - $startTime), 7));
+
             return $this;
+        }
+
+        /**
+         * @return array|mixed
+         */
+        public function getEndTime()
+        {
+            return $this->getValueByKey('endTimeTrack');
         }
 
         /**
