@@ -150,7 +150,7 @@ namespace Processus\Lib\Db
          * @param null  $tableName
          * @param array $values
          *
-         * @return mixed
+         * @return bool|\Zend\Db\Statement\Pdo
          */
         public function insert($tableName = NULL, $values = array())
         {
