@@ -88,7 +88,6 @@ namespace Processus\Abstracts\Vo
                 $cacheId = $this->_getDtoCachingId() . ":" . $internalId;
             }
 
-            var_dump($cacheId);
             return $cacheId;
         }
 
@@ -100,7 +99,7 @@ namespace Processus\Abstracts\Vo
          */
         protected function _cacheData($cacheId, $cacheData)
         {
-            return \Application\Factorys\CacheFactory::save($cacheId, $cacheData);
+            return \Application\Factorys\CacheFactory::save($cacheId, $cacheData, $this->_getExpireTime());
         }
 
         /**
@@ -129,6 +128,14 @@ namespace Processus\Abstracts\Vo
          * @return string
          */
         abstract protected function _getDtoCachingId();
+
+        /**
+         * @return int
+         */
+        protected function _getExpireTime()
+        {
+            return 60;
+        }
 
         /**
          * @return bool
