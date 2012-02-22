@@ -23,12 +23,20 @@ namespace Processus\Lib\Db
          */
         public function __construct(string $host, string $port, $id = "default")
         {
-            $this->_memcachedClient = new \Memcached($id . rand(1, $this->_maxPool));
+            $this->_memcachedClient = new \Memcached($id);
+
             $this->_memcachedClient->setOption(\Memcached::OPT_COMPRESSION, FALSE);
             $this->_memcachedClient->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
             $this->_memcachedClient->setOption(\Memcached::OPT_TCP_NODELAY, TRUE);
             $this->_memcachedClient->setOption(\Memcached::OPT_CACHE_LOOKUPS, TRUE);
-            $this->_memcachedClient->addServer($host, $port);
+            $this->_memcachedClient->setOption(\Memcached::OPT_NO_BLOCK, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_POLL_TIMEOUT, 500);
+
+            if(count($this->_memcachedClient->getServerList()) <= 1)
+            {
+                $this->_memcachedClient->addServer($host, $port);
+            }
+
         }
 
         /**
