@@ -17,8 +17,9 @@ namespace Processus\Abstracts\JsonRpc
          *
          * @return bool|\Zend\Db\Statement\Pdo
          */
-        protected function _logJsonRpc(\string $method, $request, $duration, $metaData)
+        protected function _logJsonRpc(\string $method, $request, $duration, $metaData = null)
         {
+            //            if ($this->_getPercentageOfLogging() > 55 && $this->_getPercentageOfLogging() < 100) {
             $mysql = $this->getProcessusContext()->getMasterMySql();
 
             $insertData = array(
@@ -30,6 +31,10 @@ namespace Processus\Abstracts\JsonRpc
             );
 
             return $mysql->insert($this->_getLogTransactionTable(), $insertData);
+            //            }
+
+            return FALSE;
+
         }
 
         /**
@@ -38,6 +43,14 @@ namespace Processus\Abstracts\JsonRpc
         protected function _getLogTransactionTable()
         {
             return "log_json_rpc";
+        }
+
+        /**
+         * @return int
+         */
+        protected function _getPercentageOfLogging()
+        {
+            return rand(1, 100);
         }
     }
 }
