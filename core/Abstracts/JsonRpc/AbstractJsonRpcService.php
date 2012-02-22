@@ -10,10 +10,12 @@ namespace Processus\Abstracts\JsonRpc
     abstract class AbstractJsonRpcService extends \Processus\Abstracts\AbstractClass
     {
         /**
-         * @param $method
-         * @param $request
-         * @param $duration
-         * @param $metaData
+         * @param string $method
+         * @param        $request
+         * @param        $duration
+         * @param        $metaData
+         *
+         * @return bool|\Zend\Db\Statement\Pdo
          */
         protected function _logJsonRpc(\string $method, $request, $duration, $metaData)
         {
@@ -27,7 +29,7 @@ namespace Processus\Abstracts\JsonRpc
                 "created"   => time(),
             );
 
-            $mysql->insert($this->_getLogTransactionTable(), $insertData);
+            return $mysql->insert($this->_getLogTransactionTable(), $insertData);
         }
 
         /**
