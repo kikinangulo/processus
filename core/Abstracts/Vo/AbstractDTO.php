@@ -29,8 +29,7 @@ namespace Processus\Abstracts\Vo
          */
         public function export()
         {
-            if($this->_useCache())
-            {
+            if ($this->_useCache()) {
                 $exportData = $this->_getCachedData();
 
                 if (!$exportData['id'] = 0) {
@@ -52,17 +51,15 @@ namespace Processus\Abstracts\Vo
             {
                 $exportData = array();
 
-                if (!$exportData['id'] = 0) {
-                    foreach ($this->_getMapping() as $key => $item) {
+                foreach ($this->_getMapping() as $key => $item) {
 
-                        $data = $this->getValueByKey($item['match']);
+                    $data = $this->getValueByKey($item['match']);
 
-                        if (is_null($data)) {
-                            $data = $item['default'];
-                        }
-
-                        $exportData[$key] = $data;
+                    if (is_null($data)) {
+                        $data = $item['default'];
                     }
+
+                    $exportData[$key] = $data;
                 }
 
             }
