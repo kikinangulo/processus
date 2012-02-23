@@ -45,6 +45,14 @@ namespace Processus
         }
 
         /**
+         * @return Abstracts\JsonRpc\AbstractJsonRpcGateway
+         */
+        public function getGateway()
+        {
+            return $this->_gateway;
+        }
+
+        /**
          * @return array
          */
         public function getFilesRequireList()
