@@ -32,6 +32,19 @@ namespace Processus
         private $_startTime;
 
         /**
+         * @var \Processus\Abstracts\JsonRpc\AbstractJsonRpcGateway
+         */
+        private $_gateway;
+
+        /**
+         * @param Abstracts\JsonRpc\AbstractJsonRpcGateway $gateway
+         */
+        public function setGateway(\Processus\Abstracts\JsonRpc\AbstractJsonRpcGateway $gateway)
+        {
+            $this->_gateway = $gateway;
+        }
+
+        /**
          * @return array
          */
         public function getFilesRequireList()
@@ -234,12 +247,12 @@ namespace Processus
             if ($errorObj instanceof \RuntimeException) {
                 header('HTTP/1.1 500 Internal Server Error');
 
-                $debug              = array();
-                $debug['_id']       = uniqid();
-                $debug['file']      = $errorObj->getFile();
-                $debug['line']      = $errorObj->getLine();
-                $debug['message']   = $errorObj->getMessage();
-                $debug['trace']     = $errorObj->getTraceAsString();
+                $debug            = array();
+                $debug['_id']     = uniqid();
+                $debug['file']    = $errorObj->getFile();
+                $debug['line']    = $errorObj->getLine();
+                $debug['message'] = $errorObj->getMessage();
+                $debug['trace']   = $errorObj->getTraceAsString();
 
                 $returnValue['error'] = $debug;
                 echo json_encode($returnValue);
