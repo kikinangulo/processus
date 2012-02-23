@@ -41,6 +41,24 @@ namespace Processus\Lib\Vo\Configs
         private $_applicationConfig;
 
         /**
+         * @var \Processus\Lib\Vo\Configs\Amazon\AmazongConfig
+         */
+        private $_amazonConfig;
+
+        /**
+         * @return Amazon\AmazongConfig
+         */
+        public function getAmazonConfig()
+        {
+            if (!$this->_amazonConfig) {
+                $this->_amazonConfig = new \Processus\Lib\Vo\Configs\Amazon\AmazongConfig();
+                $this->_amazonConfig->setData($this->getValueByKey("Amazon"));
+            }
+
+            return $this->_amazonConfig;
+        }
+
+        /**
          * @return \Processus\Lib\Vo\Configs\Facebook\Facebook
          */
         public function getFacebookConfig()
