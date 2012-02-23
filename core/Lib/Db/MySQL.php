@@ -188,7 +188,7 @@ namespace Processus\Lib\Db
          * @param array $values
          * @param array $conditions
          *
-         * @return mixed
+         * @return \Zend\Db\Statement\Pdo
          */
         public function update($tableName = NULL, $values = array(), $conditions = array())
         {
