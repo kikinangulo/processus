@@ -14,6 +14,6 @@ class S3Config extends \Processus\Abstracts\Vo\AbstractVO
      */
     public function getAuthData()
     {
-        return $this->getValueByKey("s3");
+        return (array)$this->getValueByKey("auth");
     }
 }
