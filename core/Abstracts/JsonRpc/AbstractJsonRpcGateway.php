@@ -159,7 +159,7 @@ namespace Processus\Abstracts\JsonRpc
         /**
          * @return \Processus\Abstracts\JsonRpc\AbstractJsonRpcRequest
          */
-        private function getRequest()
+        public function getRequest()
         {
             if (!$this->_request) {
 
