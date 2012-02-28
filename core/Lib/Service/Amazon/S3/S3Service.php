@@ -15,6 +15,5 @@ class S3Service extends \Processus\Abstracts\AbstractClass
     {
         $amazonConfig     = $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getAmazonConfig()->getS3Config()->getAuthData();
         $this->_s3Service = new \Zend\Service\Amazon\S3\S3($amazonConfig['aws_key'], $amazonConfig['secret']);
-
     }
 }
