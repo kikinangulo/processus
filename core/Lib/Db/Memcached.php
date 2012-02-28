@@ -32,8 +32,7 @@ namespace Processus\Lib\Db
             $this->_memcachedClient->setOption(\Memcached::OPT_NO_BLOCK, TRUE);
             $this->_memcachedClient->setOption(\Memcached::OPT_POLL_TIMEOUT, 500);
 
-            if(count($this->_memcachedClient->getServerList()) <= 1)
-            {
+            if (count($this->_memcachedClient->getServerList()) <= 1) {
                 $this->_memcachedClient->addServer($host, $port);
             }
 
@@ -83,7 +82,30 @@ namespace Processus\Lib\Db
         public function insert($key = "foobar", $value = array(), $expiredTime = 1)
         {
             $this->_memcachedClient->set($key, $value, $expiredTime);
-            return $this->_memcachedClient->getResultCode();
+            $resultCode = $this->_memcachedClient->getResultCode();
+            $this->_checkResultCode($resultCode, $key);
+            return $resultCode;
+        }
+
+        /**
+         * @param $resultCode
+         * @param $memKey
+         */
+        protected function _checkResultCode($resultCode, $memKey)
+        {
+            if (is_int($resultCode) && $resultCode > 0) {
+
+                $mysql        = \Processus\ProcessusContext::getInstance()->getMasterMySql();
+                $sqlTableName = "log_memcached";
+
+                $sqlParams = array(
+                    'mem_key'     => $memKey,
+                    'result_code' => $resultCode,
+                    "created"     => time(),
+                );
+
+                $mysql->insert($sqlTableName, $sqlParams);
+            }
         }
 
         /**
