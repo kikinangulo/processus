@@ -74,4 +74,15 @@ class TwitterService extends \Processus\Abstracts\AbstractClass
     {
         return $this->_client->accountVerifyCredentials();
     }
+
+    /**
+     * @return \Zend\Service\Twitter
+     */
+    public function getTwitterClient()
+    {
+        if (!$this->_client) {
+            throw new TwitterServiceException("Twitter Client not initialize! Please set the uername and accesstoken first and call the init function.");
+        }
+        return $this->_client;
+    }
 }
