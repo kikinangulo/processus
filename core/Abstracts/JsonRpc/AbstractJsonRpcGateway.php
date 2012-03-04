@@ -104,19 +104,20 @@ namespace Processus\Abstracts\JsonRpc
 
         // #########################################################
 
-
         /**
          * @return Core\Abstracts\AbstractJsonRpcServer
          */
         public function getServer()
         {
-            $serverClassName = $this->getServerClassName();
+            if (!$this->_server) {
+                $serverClassName = $this->getServerClassName();
 
-            /** @var $server  AbstractJsonRpcServer */
-            $server = new $serverClassName();
-            $server->setRequest($this->getRequest());
+                /** @var $server  AbstractJsonRpcServer */
+                $this->_server = new $serverClassName();
+                $this->_server->setRequest($this->getRequest());
+            }
 
-            return $server;
+            return $this->_server;
         }
 
         // #########################################################
@@ -225,8 +226,7 @@ namespace Processus\Abstracts\JsonRpc
             $authFile   = str_replace("\\", "/", $this->getConfigValue('namespace') . "\\" . "Auth");
             $classExist = file_exists(PATH_APP . "/" . $authFile . '.php');
 
-            if ($classExist)
-            {
+            if ($classExist) {
 
                 try {
 
@@ -256,8 +256,7 @@ namespace Processus\Abstracts\JsonRpc
          */
         private function validateConfigKey($key = NULL)
         {
-            if (array_key_exists($key, $this->getConfig()))
-            {
+            if (array_key_exists($key, $this->getConfig())) {
                 return TRUE;
             }
 
