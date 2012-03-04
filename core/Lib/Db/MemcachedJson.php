@@ -2,9 +2,7 @@
 
 namespace Processus\Lib\Db
 {
-    use Processus\Interfaces\InterfaceDatabase;
-
-    class MemcachedJson implements InterfaceDatabase
+    class MemcachedJson implements \Processus\Interfaces\InterfaceDatabase
     {
         /**
          * @var \Memcached
@@ -16,11 +14,20 @@ namespace Processus\Lib\Db
          * @param string $port
          * @param string $id
          */
-        public function __construct(string $host, string $port, $id = "default")
+        public function __construct(\string $host, \string $port, $id = "default")
         {
             $this->_memcachedClient = new \Memcached($id);
-            $this->_memcachedClient->addServer($host, $port);
-            $this->_memcachedClient->setOption(\Memcached::OPT_SERIALIZER, \Memcached::SERIALIZER_JSON);
+
+            $this->_memcachedClient->setOption(\Memcached::OPT_COMPRESSION, FALSE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
+            $this->_memcachedClient->setOption(\Memcached::OPT_TCP_NODELAY, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_CACHE_LOOKUPS, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_NO_BLOCK, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_POLL_TIMEOUT, 500);
+
+            if (count($this->_memcachedClient->getServerList()) <= 1) {
+                $this->_memcachedClient->addServer($host, $port);
+            }
         }
 
         /**

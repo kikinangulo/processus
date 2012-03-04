@@ -2,9 +2,7 @@
 
 namespace Processus\Lib\Db
 {
-    use Processus\Interfaces\InterfaceDatabase;
-
-    class Memcached implements InterfaceDatabase
+    class Memcached implements \Processus\Interfaces\InterfaceDatabase
     {
         /**
          * @var \Memcached

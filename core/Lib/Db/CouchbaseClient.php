@@ -7,21 +7,24 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib\Db;
-class CouchbaseClient extends \Couchbase\Couchbase implements \Processus\Interfaces\InterfaceDatabase
+class CouchbaseClient implements \Processus\Interfaces\InterfaceDatabase
 {
     /**
-     * @var
+     * @var \Couchbase
      */
     private $_couchbaseClient;
 
-    public function __construct(string $host, string $port, $id = "default")
+    /**
+     * @param string $host // example: 127.0.0.1:8091
+     * @param string $userName
+     * @param string $password
+     * @param string $couchbaseBucket
+     */
+    public function __construct(\string $host, \string $userName, \string $password, \string $couchbaseBucket)
     {
-        $this->_couchbaseClient = new \Couchbase\Couchbase();
-        $this->_couchbaseClient->setOption(\Memcached::OPT_COMPRESSION, FALSE);
-        $this->_couchbaseClient->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
-        $this->_couchbaseClient->setOption(\Memcached::OPT_TCP_NODELAY, TRUE);
-        $this->_couchbaseClient->setOption(\Memcached::OPT_CACHE_LOOKUPS, TRUE);
-        $this->_couchbaseClient->addCouchbaseServer($host, $port, $id);
+        $this->_couchbaseClient = new \Couchbase($host, $userName, $password, $couchbaseBucket);
+
+        $this->_couchbaseClient->setOption(COUCHBASE_OPT_COMPRESSER, FALSE);
     }
 
     /**
@@ -67,8 +70,7 @@ class CouchbaseClient extends \Couchbase\Couchbase implements \Processus\Interfa
      */
     public function insert($key = "foobar", $value = array(), $expiredTime = 1)
     {
-        $this->_couchbaseClient->set($key, $value, $expiredTime);
-        return $this->_couchbaseClient->getResultCode();
+        return $this->_couchbaseClient->set($key, $value, $expiredTime);
     }
 
     /**
