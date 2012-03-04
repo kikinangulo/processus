@@ -9,6 +9,17 @@ namespace Processus\Abstracts\JsonRpc
 {
     abstract class AbstractJsonRpcService extends \Processus\Abstracts\AbstractClass
     {
+
+        /**
+         * @return array
+         */
+        public function getApi()
+        {
+            /** @var $server AbstractJsonRpcServer */
+            $server = $this->getProcessusContext()->getBootstrap()->getGateway()->getServer();
+            return $server->getServiceMap()->toArray();
+        }
+
         /**
          * @param string $method
          * @param        $request
