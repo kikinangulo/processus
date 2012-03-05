@@ -15,7 +15,7 @@ This is a small App / Game JSON-RPC Framework.
 
 ### MIT License
 
-__Copyright (c) 2011 by Crowdpark GmbH and Francis Varga__
+__Copyright (c) 2011 by [Crowdpark GmbH](http://www.crowdpark.com) and [Francis Varga](http://varga-multimedia.com)__
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
