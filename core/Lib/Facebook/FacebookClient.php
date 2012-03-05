@@ -121,7 +121,7 @@ namespace Processus\Lib\Facebook
         {
             $defaultCache = $this->getProcessusContext()->getDefaultCache();
             $fbNum        = $this->getUserId();
-            $memKey       = "getUserFriends_" . $fbNum;
+            $memKey       = "FacebookClient_getUserFriends_" . $fbNum;
 
             $facebookFriends = $defaultCache->fetch($memKey);
 
@@ -138,7 +138,7 @@ namespace Processus\Lib\Facebook
         /**
          * @return \Processus\Contrib\Facebook\Facebook
          */
-        protected function getFacebookSdk()
+        public function getFacebookSdk()
         {
             if (!$this->_facebookSdk) {
                 $this->_facebookSdk = new \Processus\Contrib\Facebook\Facebook($this->getFacebookClientConfig()->toArray());

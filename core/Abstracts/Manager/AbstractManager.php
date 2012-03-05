@@ -145,7 +145,7 @@ namespace Processus\Abstracts\Manager
         /**
          * @param \Processus\Interfaces\InterfaceComConfig $com
          *
-         * @return mixed
+         * @return \Zend\Db\Statement\Pdo
          */
         protected function update(\Processus\Interfaces\InterfaceComConfig $com)
         {
@@ -210,8 +210,7 @@ namespace Processus\Abstracts\Manager
          */
         protected function ccFactory(\Processus\Interfaces\InterfaceDatabase $connector = NULL)
         {
-            if(!$connector)
-            {
+            if (!$connector) {
                 $connector = \Processus\Lib\Db\MySQL::getInstance();
             }
             $comConfig = new ComConfig();

@@ -2,14 +2,17 @@
 
 namespace Processus\Lib\Db
 {
-    use Processus\Interfaces\InterfaceDatabase;
-
-    class Memcached implements InterfaceDatabase
+    class Memcached implements \Processus\Interfaces\InterfaceDatabase
     {
         /**
          * @var \Memcached
          */
         private $_memcachedClient;
+
+        /**
+         * @var int
+         */
+        private $_maxPool = 10;
 
         /**
          * @param string $host
@@ -19,8 +22,18 @@ namespace Processus\Lib\Db
         public function __construct(string $host, string $port, $id = "default")
         {
             $this->_memcachedClient = new \Memcached($id);
-            $this->_memcachedClient->setOption(\Memcached::OPT_COMPRESSION,false);
-            $this->_memcachedClient->addServer($host, $port);
+
+            $this->_memcachedClient->setOption(\Memcached::OPT_COMPRESSION, FALSE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
+            $this->_memcachedClient->setOption(\Memcached::OPT_TCP_NODELAY, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_CACHE_LOOKUPS, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_NO_BLOCK, TRUE);
+            $this->_memcachedClient->setOption(\Memcached::OPT_POLL_TIMEOUT, 500);
+
+            if (count($this->_memcachedClient->getServerList()) <= 1) {
+                $this->_memcachedClient->addServer($host, $port);
+            }
+
         }
 
         /**
@@ -67,7 +80,30 @@ namespace Processus\Lib\Db
         public function insert($key = "foobar", $value = array(), $expiredTime = 1)
         {
             $this->_memcachedClient->set($key, $value, $expiredTime);
-            return $this->_memcachedClient->getResultCode();
+            $resultCode = $this->_memcachedClient->getResultCode();
+            $this->_checkResultCode($resultCode, $key);
+            return $resultCode;
+        }
+
+        /**
+         * @param $resultCode
+         * @param $memKey
+         */
+        protected function _checkResultCode($resultCode, $memKey)
+        {
+            if (is_int($resultCode) && $resultCode > 0) {
+
+                $mysql        = \Processus\ProcessusContext::getInstance()->getMasterMySql();
+                $sqlTableName = "log_memcached";
+
+                $sqlParams = array(
+                    'mem_key'     => $memKey,
+                    'result_code' => $resultCode,
+                    "created"     => time(),
+                );
+
+                $mysql->insert($sqlTableName, $sqlParams);
+            }
         }
 
         /**
