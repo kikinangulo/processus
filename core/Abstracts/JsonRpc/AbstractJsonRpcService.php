@@ -50,14 +50,6 @@ namespace Processus\Abstracts\JsonRpc
         {
             return "log_json_rpc";
         }
-
-        /**
-         * @return int
-         */
-        protected function _getPercentageOfLogging()
-        {
-            return rand(1, 100);
-        }
     }
 }
 
