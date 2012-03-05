@@ -15,9 +15,7 @@ namespace Processus\Abstracts\JsonRpc
          */
         public function getApi()
         {
-            /** @var $server AbstractJsonRpcServer */
-            $server = $this->getProcessusContext()->getBootstrap()->getGateway()->getServer();
-            return $server->getServiceMap()->toArray();
+            return $this->getProcessusContext()->getBootstrap()->getGateway()->getServer()->getServiceMap()->toArray();
         }
 
         /**
@@ -30,7 +28,6 @@ namespace Processus\Abstracts\JsonRpc
          */
         protected function _logJsonRpc(\string $method, $request, $duration, $metaData = null)
         {
-            //            if ($this->_getPercentageOfLogging() > 55 && $this->_getPercentageOfLogging() < 100) {
             $mysql = $this->getProcessusContext()->getMasterMySql();
 
             $insertData = array(
@@ -42,10 +39,8 @@ namespace Processus\Abstracts\JsonRpc
             );
 
             return $mysql->insert($this->_getLogTransactionTable(), $insertData);
-            //            }
 
-            return FALSE;
-
+            return TRUE;
         }
 
         /**
