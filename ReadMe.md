@@ -1,15 +1,14 @@
- 888888ba
- 88    `8b
-a88aaaa8P' 88d888b. .d8888b. .d8888b. .d8888b. .d8888b. .d8888b. dP    dP .d8888b.
- 88        88'  `88 88'  `88 88'  `"" 88ooood8 Y8ooooo. Y8ooooo. 88    88 Y8ooooo.
- 88        88       88.  .88 88.  ... 88.  ...       88       88 88.  .88       88
- dP        dP       `88888P' `88888P' `88888P' `88888P' `88888P' `88888P' `88888P'
+(_____ \
+ _____) )____ ___   ____ _____  ___  ___ _   _  ___
+|  ____// ___) _ \ / ___) ___ |/___)/___) | | |/___)
+| |    | |  | |_| ( (___| ____|___ |___ | |_| |___ |
+|_|    |_|   \___/ \____)_____|___/(___/|____/(___/
 
-## Instruction
+### Instruction
 
 This is a small App / Game JSON-RPC Framework.
 
-## MIT License
+### MIT License
 
 __Copyright (c) 2011 by Crowdpark GmbH and Francis Varga__
 
