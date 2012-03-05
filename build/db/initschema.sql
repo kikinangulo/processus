@@ -5,10 +5,12 @@ CREATE TABLE `users` (
   `twitter_id` bigint(20) DEFAULT NULL,
   `last_login` int(11) DEFAULT NULL,
   `use_mobile` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `fb_id` (`fb_id`),
   UNIQUE KEY `twitter_id` (`twitter_id`),
   KEY `by_user` (`id`,`created`),
-  KEY `by_created` (`created`,`id`)
+  KEY `by_created` (`created`,`id`),
+  KEY `users_query` (`id`,`created`,`fb_id`,`twitter_id`,`last_login`,`use_mobile`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `log_memcached` (
