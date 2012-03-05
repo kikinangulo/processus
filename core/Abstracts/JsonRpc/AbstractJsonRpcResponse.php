@@ -61,8 +61,6 @@ namespace Processus\Abstracts\JsonRpc
                     "request_time" => $this->_getServerParams()->getRequestTime()
                 );
 
-                $currentUser = \Processus\ProcessusContext::getInstance()->getUserBo()->getFacebookUserMvo()->setDto(new \Application\Dto\FbBasicDto())->export();
-
                 $requireList = \Processus\ProcessusContext::getInstance()->getBootstrap()->getFilesRequireList();
 
                 $fileStack = array(
@@ -75,7 +73,6 @@ namespace Processus\Abstracts\JsonRpc
                     "app"         => $app,
                     "system"      => $system,
                     "profiling"   => $this->_getProfiler()->getProfilerStack(),
-                    'currentUser' => $currentUser,
                     'fileStack'   => $requireList,
                 );
 
