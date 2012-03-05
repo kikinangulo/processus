@@ -105,7 +105,7 @@ namespace Processus\Abstracts\JsonRpc
         // #########################################################
 
         /**
-         * @return Core\Abstracts\AbstractJsonRpcServer
+         * @return AbstractJsonRpcServer
          */
         public function getServer()
         {
