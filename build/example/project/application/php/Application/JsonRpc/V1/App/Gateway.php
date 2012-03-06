@@ -2,7 +2,6 @@
 
 namespace Application\JsonRpc\V1\App
 {
-
     class Gateway extends \Processus\Abstracts\JsonRpc\AbstractJsonRpcGateway
     {
 

@@ -2,7 +2,7 @@
 
 namespace Application\JsonRpc\V1\App
 {
-    class Request extends \Processus\Abstracts\JsonRpc\AbstractJsonRpcResponse
+    class Response extends \Processus\Abstracts\JsonRpc\AbstractJsonRpcResponse
     {
 
     }
