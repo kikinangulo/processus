@@ -46,15 +46,6 @@ namespace Processus\Abstracts\JsonRpc
                     "request_time" => $this->_getServerParams()->getRequestTime()
                 );
 
-                try
-                {
-                    $currentUser = \Processus\ProcessusContext::getInstance()->getUserBo()->getFacebookUserMvo()->setDto(new \Application\Dto\FbBasicDto())->export();
-                }
-                catch(\Exception $error)
-                {
-                    $currentUser = array();
-                }
-
                 $requireList = \Processus\ProcessusContext::getInstance()->getBootstrap()->getFilesRequireList();
 
                 $fileStack = array(
@@ -67,15 +58,15 @@ namespace Processus\Abstracts\JsonRpc
                     "app"         => $app,
                     "system"      => $system,
                     "profiling"   => $this->_getProfiler()->getProfilerStack(),
-                    'currentUser' => $currentUser,
                     'fileStack'   => $fileStack,
+                    'fileStack'   => $requireList,
                 );
 
                 $response['debug'] = $debugInfo;
-                $error['code']    = $this->getError()->getCode();
-                $error['message'] = $this->getError()->getMessage();
-                $error['data']    = $this->getError()->getData();
-                $error['stack']   = $this->getError()->getData()->getTraceAsString();
+                $error['code']     = $this->getError()->getCode();
+                $error['message']  = $this->getError()->getMessage();
+                $error['data']     = $this->getError()->getData();
+                $error['stack']    = $this->getError()->getData()->getTraceAsString();
 
                 $response['error'] = $error;
                 $response['id']    = $this->getId();
@@ -84,9 +75,9 @@ namespace Processus\Abstracts\JsonRpc
             else
             {
 
-                $response                       = array();
-                $response['result']             = $this->getResult();
-                $response['id']                 = $this->getId();
+                $response           = array();
+                $response['result'] = $this->getResult();
+                $response['id']     = $this->getId();
 
             }
 

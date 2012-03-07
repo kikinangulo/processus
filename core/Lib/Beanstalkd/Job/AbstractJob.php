@@ -6,16 +6,14 @@
  * Time: 4:29 AM
  * To change this template use File | Settings | File Templates.
  */
-namespace Processus\Lib\Beanstalkd\Job
+namespace Processus\Lib\Beanstalkd\Job;
+
+abstract class AbstractJob extends \Processus\Abstracts\AbstractClass
 {
 
-    abstract class AbstractJob
-    {
-
-        /**
-         * @abstract
-         * @return void
-         */
-        abstract public function startJob();
-    }
+    /**
+     * @abstract
+     * @return void
+     */
+    abstract public function startJob();
 }

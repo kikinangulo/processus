@@ -32,6 +32,27 @@ namespace Processus
         private $_startTime;
 
         /**
+         * @var \Processus\Abstracts\JsonRpc\AbstractJsonRpcGateway
+         */
+        private $_gateway;
+
+        /**
+         * @param Abstracts\JsonRpc\AbstractJsonRpcGateway $gateway
+         */
+        public function setGateway(\Processus\Abstracts\JsonRpc\AbstractJsonRpcGateway $gateway)
+        {
+            $this->_gateway = $gateway;
+        }
+
+        /**
+         * @return Abstracts\JsonRpc\AbstractJsonRpcGateway
+         */
+        public function getGateway()
+        {
+            return $this->_gateway;
+        }
+
+        /**
          * @return array
          */
         public function getFilesRequireList()
@@ -207,9 +228,8 @@ namespace Processus
 
                 $lastError['data'] = $lastError;
 
-                $error['debug'] = $debug;
-
-                $error['user'] = $user;
+                $error['debug']     = $debug;
+                $error['user']      = $user;
                 $error['lasterror'] = $lastError;
 
                 $returnValue['error'] = $error;

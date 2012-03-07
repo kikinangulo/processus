@@ -187,7 +187,6 @@ namespace Processus
 
         // #########################################################
 
-
         /**
          * @return \Processus\Lib\Bo\UserBo
          */

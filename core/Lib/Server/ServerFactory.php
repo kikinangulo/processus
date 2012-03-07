@@ -5,70 +5,64 @@
  * @author francis
  *
  */
-namespace Processus\Lib\Server
+namespace Processus\Lib\Server;
+
+class ServerFactory
 {
-    use Processus\Lib\Db\MySQL;
 
-    use Processus\Lib\Db\Memcached;
+    /**
+     * @var array
+     */
+    private static $_couchbasePool = array();
 
-    class ServerFactory
+    /**
+     * @var array
+     */
+    private static $_mysqlPool;
+
+    /**
+     * @static
+     *
+     * @param string $host
+     * @param string $port
+     * @param string $id
+     *
+     * @return \Memcached
+     */
+    public static function memcachedFactory(\string $host, \string $port, $id = "default")
     {
+        $poolKey = md5($host . $port . $id);
 
-        /**
-         * @var array
-         */
-        private static $_couchbasePool = array();
-
-        /**
-         * @var array
-         */
-        private static $_mysqlPool;
-
-        /**
-         * @static
-         *
-         * @param string $host
-         * @param string $port
-         * @param string $id
-         *
-         * @return \Memcached
-         */
-        public static function memcachedFactory(string $host, string $port, $id = "default")
-        {
-            $poolKey = md5($host . $port . $id);
-
-            if (array_key_exists($poolKey, self::$_couchbasePool) === FALSE) {
-
-                $memcached                      = new Memcached($host, $port, $poolKey);
-                self::$_couchbasePool[$poolKey] = $memcached;
-
-            }
-
-            return self::$_couchbasePool[$poolKey];
+        if (array_key_exists($poolKey, self::$_couchbasePool) === FALSE) {
+            $memcached                      = new \Processus\Lib\Db\Memcached($host, $port, $poolKey);
+            self::$_couchbasePool[$poolKey] = $memcached;
         }
 
-        /**
-         * @static
-         *
-         * @param string $adapter
-         * @param array  $params
-         *
-         * @return MySQL
-         */
-        public static function mysqlFactory(string $adapter, array $params)
-        {
-            $poolKey = md5($adapter . join('', $params));
+        return self::$_couchbasePool[$poolKey];
+    }
 
-            if (array_key_exists($poolKey, self::$_mysqlPool) === FALSE) {
-                $mysql = new MySQL();
-                $mysql->init($adapter, $params);
-                self::$_mysqlPool[$poolKey] = $mysql;
-            }
+    /**
+     * @static
+     *
+     * @param string $adapter
+     * @param array  $params
+     *
+     * @return MySQL
+     */
+    public static function mysqlFactory(\string $adapter, array $params)
+    {
+        $poolKey = md5($adapter . join('', $params));
 
-            var_dump(array($mysql, $adapter, $params, $poolKey));
-
-            return $mysql;
+        if (array_key_exists($poolKey, self::$_mysqlPool) === FALSE) {
+            $mysql = new \Processus\Lib\Db\MySQL();
+            $mysql->init($adapter, $params);
+            self::$_mysqlPool[$poolKey] = $mysql;
         }
+
+        var_dump(array($mysql, $adapter, $params, $poolKey));
+
+        return $mysql;
     }
 }
+
 ?>
