@@ -11,6 +11,14 @@ namespace Processus\Abstracts\JsonRpc
     {
 
         /**
+         * @return AbstractJsonRpcRequest
+         */
+        protected function _getRawRequest()
+        {
+            return $this->getProcessusContext()->getBootstrap()->getGateway()->getRequest();
+        }
+
+        /**
          * @return array
          */
         public function getApi()

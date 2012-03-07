@@ -21,6 +21,13 @@ namespace Processus\Abstracts\Manager
 
         // #########################################################
 
+        /**
+         * @return \Processus\Abstracts\JsonRpc\AbstractJsonRpcRequest
+         */
+        protected function _getRawRequest()
+        {
+            return $this->getProcessusContext()->getBootstrap()->getGateway()->getRequest();
+        }
 
         /**
          * @return \Processus\Lib\Db\Memcached
