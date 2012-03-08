@@ -8,7 +8,7 @@
  */
 namespace Processus\Lib\Beanstalkd
 {
-    abstract class AbstractWorker extends \Processus\Abstracts\AbstractTask
+    abstract class AbstractWorker extends \Processus\Abstracts\Manager\AbstractManager
     {
         /**
          * @var \Pheanstalk\Pheanstalk
@@ -29,8 +29,15 @@ namespace Processus\Lib\Beanstalkd
         }
 
         /**
+         * @param $error
          *
+         * @return bool
          */
+        protected function _logErrorToMySql($error)
+        {
+            return TRUE;
+        }
+
         public function run()
         {
             /** @var $job \Pheanstalk\Job */
@@ -92,15 +99,6 @@ namespace Processus\Lib\Beanstalkd
         protected function getPort()
         {
             return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
-        }
-
-        /**
-         * @param $error
-         */
-        protected function _logErrorToMySql($error)
-        {
-            $sqlTable = "log_task";
-            $sqlParams = array();
         }
 
         /**

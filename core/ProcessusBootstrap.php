@@ -78,9 +78,9 @@ namespace Processus
 
                 // setup autoloader
                 spl_autoload_register(array(
-                    $this,
-                    '_autoLoad'
-                ));
+                                           $this,
+                                           '_autoLoad'
+                                      ));
 
                 // display errors for the following part
                 ini_set('display_errors', '1');
@@ -89,19 +89,19 @@ namespace Processus
 
                 set_error_handler(array(
 
-                    "Processus\\ProcessusBootstrap",
-                    'handleError'
-                ));
+                                       "Processus\\ProcessusBootstrap",
+                                       'handleError'
+                                  ));
 
                 register_shutdown_function(array(
-                    "Processus\\ProcessusBootstrap",
-                    'handleError'
-                ));
+                                                "Processus\\ProcessusBootstrap",
+                                                'handleError'
+                                           ));
 
                 set_exception_handler(array(
-                    "Processus\\ProcessusBootstrap",
-                    'handleError'
-                ));
+                                           "Processus\\ProcessusBootstrap",
+                                           'handleError'
+                                      ));
 
                 //ini_set('display_errors', '0');
 
@@ -178,8 +178,8 @@ namespace Processus
                 throw new \Zend\Di\Exception\ClassNotFoundException('Class not found! -> ' . $classFile);
             }
 
-            $currentTime = microtime(TRUE) - $this->_startTime;
-            $fileData = array(
+            $currentTime                = microtime(TRUE) - $this->_startTime;
+            $fileData                   = array(
                 'file' => $classFile,
                 'time' => $currentTime * 1000,
             );
@@ -199,31 +199,31 @@ namespace Processus
                 return;
             }
 
-            $lastError = error_get_last();
+            $lastError  = error_get_last();
             $errorLevel = error_reporting();
 
-            $returnValue = array();
+            $returnValue           = array();
             $returnValue['result'] = array();
-            $returnValue['error'] = array();
+            $returnValue['error']  = array();
 
             if ($errorObj instanceof \Processus\Abstracts\AbstractException) {
 
                 header('HTTP/1.1 500 Internal Server Error');
 
                 $debug = array();
-                $user = array();
+                $user  = array();
 
-                $debug['trigger'] = "Manual Exception";
-                $debug['file'] = $errorObj->getFile();
-                $debug['line'] = $errorObj->getLine();
-                $debug['message'] = $errorObj->getMessage();
-                $debug['trace'] = $errorObj->getTraceAsString();
-                $debug['method'] = $errorObj->getMethod();
+                $debug['trigger']      = "Manual Exception";
+                $debug['file']         = $errorObj->getFile();
+                $debug['line']         = $errorObj->getLine();
+                $debug['message']      = $errorObj->getMessage();
+                $debug['trace']        = $errorObj->getTraceAsString();
+                $debug['method']       = $errorObj->getMethod();
                 $debug['extendedData'] = $errorObj->getExtendData();
 
                 $user['message'] = $errorObj->getUserMessage();
-                $user['title'] = $errorObj->getUserMessageTitle();
-                $user['code'] = $errorObj->getUserErrorCode();
+                $user['title']   = $errorObj->getUserMessageTitle();
+                $user['code']    = $errorObj->getUserErrorCode();
                 $user['details'] = $errorObj->getUserDetailError();
 
                 $lastError['data'] = $lastError;
@@ -242,11 +242,11 @@ namespace Processus
 
                 header('HTTP/1.1 500 Internal Server Error');
 
-                $returnValue = array();
-                $error['trigger'] = "Auto Exception";
+                $returnValue        = array();
+                $error['trigger']   = "Auto Exception";
                 $error['backtrace'] = debug_backtrace();
-                $error['errorData'] = $lastError;
-                $error['params'] = $errorObj;
+                $error['errorData'] = var_export($lastError, TRUE);
+                $error['params']    = var_export($errorObj, TRUE);
 
                 $returnValue['error'] = $error;
 
@@ -257,12 +257,12 @@ namespace Processus
             if ($errorObj instanceof \RuntimeException) {
                 header('HTTP/1.1 500 Internal Server Error');
 
-                $debug = array();
-                $debug['_id'] = uniqid();
-                $debug['file'] = $errorObj->getFile();
-                $debug['line'] = $errorObj->getLine();
+                $debug            = array();
+                $debug['_id']     = uniqid();
+                $debug['file']    = $errorObj->getFile();
+                $debug['line']    = $errorObj->getLine();
                 $debug['message'] = $errorObj->getMessage();
-                $debug['trace'] = $errorObj->getTraceAsString();
+                $debug['trace']   = $errorObj->getTraceAsString();
 
                 $returnValue['error'] = $debug;
                 echo json_encode($returnValue);
