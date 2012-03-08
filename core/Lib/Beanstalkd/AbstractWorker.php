@@ -35,8 +35,26 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function _logErrorToMySql($error)
         {
-            return TRUE;
+            $pdo = $this->insert($this->ccFactory()
+                    ->setSqlTableName($this->_getLogTable())
+                    ->setSqlParams($this->_getSqlLogParams($error)
+                )
+            );
+            return $pdo;
         }
+
+        /**
+         * @abstract
+         * @return string
+         */
+        abstract protected function _getLogTable ();
+
+        /**
+         * @abstract
+         * @param $rawObject
+         * @return array
+         */
+        abstract protected function _getSqlLogParams ($rawObject);
 
         public function run()
         {
