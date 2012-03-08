@@ -104,4 +104,31 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
     {
         return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
     }
+
+    /**
+     * @param $error
+     * @return bool
+     */
+    protected function _logErrorToMySql($error)
+    {
+        $pdo = $this->insert($this->ccFactory()
+                ->setSqlTableName($this->_getLogTable())
+                ->setSqlParams($this->_getSqlLogParams($error)
+            )
+        );
+        return $pdo;
+    }
+
+    /**
+     * @abstract
+     * @return string
+     */
+    abstract protected function _getLogTable ();
+
+    /**
+     * @abstract
+     * @param $rawObject
+     * @return array
+     */
+    abstract protected function _getSqlLogParams ($rawObject);
 }
