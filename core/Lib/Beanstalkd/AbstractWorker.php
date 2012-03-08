@@ -8,7 +8,7 @@
  */
 namespace Processus\Lib\Beanstalkd
 {
-    abstract class AbstractWorker extends \Processus\Abstracts\AbstractTask
+    abstract class AbstractWorker extends \Processus\Abstracts\Manager\AbstractManager
     {
         /**
          * @var \Pheanstalk\Pheanstalk
@@ -26,6 +26,16 @@ namespace Processus\Lib\Beanstalkd
 
             }
 
+        }
+
+        /**
+         * @param $error
+         *
+         * @return bool
+         */
+        protected function _logErrorToMySql($error)
+        {
+            return TRUE;
         }
 
         public function run()
