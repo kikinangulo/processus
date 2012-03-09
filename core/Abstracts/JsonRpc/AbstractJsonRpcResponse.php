@@ -25,7 +25,9 @@ namespace Processus\Abstracts\JsonRpc
                 $error['code']    = $this->getError()->getCode();
                 $error['message'] = $this->getError()->getMessage();
                 $error['data']    = $this->getError()->getData();
-                $error['stack']   = $this->getError()->getData()->getTraceAsString();
+                if (is_object($error['data'])) {
+                    $error['stack']   = $this->getError()->getData()->getTraceAsString();
+                }
 
                 $response['error'] = $error;
                 $response['id']    = $this->getId();
