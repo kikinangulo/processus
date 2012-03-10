@@ -10,12 +10,35 @@ namespace Processus\Interfaces
 {
     interface InterfaceVo
     {
+        /**
+         * @abstract
+         *
+         * @param $data
+         */
         public function setData($data);
 
+        /**
+         * @abstract
+         *
+         * @param string $key
+         * @param object $value
+         */
         public function setValueByKey(\string $key, \object $value);
 
+        /**
+         * @abstract
+         *
+         * @param string $key
+         *
+         * @return mixed
+         */
         public function getValueByKey(\string $key);
 
+        /**
+         * @abstract
+         *
+         * @return mixed|array
+         */
         public function getData();
 
         /**
