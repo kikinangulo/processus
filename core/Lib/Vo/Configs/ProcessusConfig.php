@@ -46,6 +46,24 @@ namespace Processus\Lib\Vo\Configs
         private $_amazonConfig;
 
         /**
+         * @var \Processus\Lib\Vo\Sendgrid\SendgridConfig
+         */
+        private $_sendgridConfig;
+
+        /**
+         * @return \Processus\Lib\Vo\Sendgrid\SendgridConfig
+         */
+        public function getSendgridConfig()
+        {
+            if (!$this->_sendgridConfig) {
+                $this->_sendgridConfig = new \Processus\Lib\Vo\Sendgrid\SendgridConfig();
+                $this->_sendgridConfig->setData($this->getValueByKey("SendGrid"));
+            }
+
+            return $this->_sendgridConfig;
+        }
+
+        /**
          * @return Amazon\AmazongConfig
          */
         public function getAmazonConfig()
