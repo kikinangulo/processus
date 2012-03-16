@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib\Service\Sendgrid;
-abstract class AbstractEMailDeliveringService extends \Processus\Abstracts\AbstractClass
+abstract class AbstractSendgridService extends \Processus\Abstracts\AbstractClass
 {
 
     /**
@@ -21,24 +21,22 @@ abstract class AbstractEMailDeliveringService extends \Processus\Abstracts\Abstr
     protected $_transport;
 
     /**
-     * @param        $receiverEmailAddress
-     * @param        $bodyHtml
+     * @param string $receiverEmailAddress
+     * @param string $bodyHtml
      * @param string $subject
      *
      * @return \Zend\Mail\Mail
      * @throws \Exception
      */
-    protected function _sendEmail($receiverEmailAddress, $bodyHtml, $subject = "AnteUp")
+    protected function _sendEmail(\string $receiverEmailAddress, \string $bodyHtml, \string $subject = "AnteUp")
     {
-        try
-        {
+        try {
             $response = $this->_getMailClient()->addTo($receiverEmailAddress)
                 ->setSubject($subject)
                 ->setBodyHtml($bodyHtml)
                 ->send();
         }
-        catch (\Exception $error)
-        {
+        catch (\Exception $error) {
             throw $error;
         }
         return $response;
@@ -51,17 +49,20 @@ abstract class AbstractEMailDeliveringService extends \Processus\Abstracts\Abstr
     {
         if (!$this->_transport) {
 
-
+            /** @var $procConfig \Processus\Abstracts\Vo\AbstractVO */
             $procConfig = $this->getProcessusContext()->getRegistry()
                 ->getProcessusConfig()
-                ->getValueByKey("SendGrid");
+                ->getSendgridConfig();
 
-            $config = array('auth'     => 'login',
-                            'username' => 'crowdpark',
-                            'password' => 'CrowdPark4Ever'
+            $config = array(
+                'auth'     => 'login',
+                'username' => $procConfig->getSgCredentials()->getValueByKey("user"),
+                'password' => $procConfig->getSgCredentials()->getValueByKey("password"),
             );
 
-            $this->_transport = new \Zend\Mail\Transport\Smtp('smtp.sendgrid.net', array('port' => 587));
+            $this->_transport = new \Zend\Mail\Transport\Smtp($procConfig->getSgServerConfig()->getValueByKey(
+                "host"
+            ), array('port' => $procConfig->getSgServerConfig()->getValueByKey("port")));
             $this->_transport->setConfig($config);
 
         }
@@ -111,9 +112,16 @@ abstract class AbstractEMailDeliveringService extends \Processus\Abstracts\Abstr
             "sendgrid_response" => json_encode($sendgridResponse),
             "raw_data"          => json_encode($userRawData),
         );
-        $table      = "email";
 
-        $mysql->insert($table, $insertData);
+        $mysql->insert($this->_getLogTable(), $insertData);
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getLogTable()
+    {
+        return "log_send_email";
     }
 
     /**
