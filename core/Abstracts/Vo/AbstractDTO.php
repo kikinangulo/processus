@@ -25,9 +25,11 @@ namespace Processus\Abstracts\Vo
         }
 
         /**
-         * @return array
+         * @param null $rawData
+         *
+         * @return array|mixed
          */
-        public function export()
+        public function export($rawData = null)
         {
             if ($this->_useCache()) {
                 $exportData = $this->_getCachedData();
