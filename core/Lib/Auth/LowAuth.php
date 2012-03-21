@@ -11,7 +11,7 @@
 
         use Processus\Interfaces\InterfaceAuthModule;
 
-        class LowAuth implements InterfaceAuthModule
+        class LowAuth extends \Processus\Abstracts\AbstractClass implements InterfaceAuthModule
         {
             public function setAuthData($authData)
             {
