@@ -6,8 +6,8 @@
  * Time: 12:01 PM
  * To change this template use File | Settings | File Templates.
  */
-namespace Processus\Lib\Service\Sendgrid;
-abstract class AbstractSendgridService extends \Processus\Abstracts\AbstractClass
+namespace Processus\Abstracts;
+abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractVO
 {
 
     /**
@@ -21,20 +21,28 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\AbstractClas
     protected $_transport;
 
     /**
-     * @param string $receiverEmailAddress
-     * @param string $bodyHtml
-     * @param string $subject
+     * @param $receiverEmailAddress
+     * @param $bodyHtml
+     * @param $subject
      *
-     * @return \Zend\Mail\Mail
+     * @return array|\Zend\Mail\Mail
      * @throws \Exception
      */
-    protected function _sendEmail(\string $receiverEmailAddress, \string $bodyHtml, \string $subject = "AnteUp")
+    protected function _sendEmail($receiverEmailAddress, $bodyHtml, $subject)
     {
+        $response = array();
+
         try {
             $response = $this->_getMailClient()->addTo($receiverEmailAddress)
                 ->setSubject($subject)
                 ->setBodyHtml($bodyHtml)
                 ->send();
+
+            $userData             = array();
+            $userData['email']    = $receiverEmailAddress;
+            $userData['bodyHtml'] = $bodyHtml;
+            $userData['subject']  = $subject;
+            $this->_logSendEmail($userData, $response);
         }
         catch (\Exception $error) {
             throw $error;
@@ -50,9 +58,7 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\AbstractClas
         if (!$this->_transport) {
 
             /** @var $procConfig \Processus\Abstracts\Vo\AbstractVO */
-            $procConfig = $this->getProcessusContext()->getRegistry()
-                ->getProcessusConfig()
-                ->getSendgridConfig();
+            $procConfig = $this->getProcessusContext()->getRegistry()->getSendgridConfig();
 
             $config = array(
                 'auth'     => 'login',
@@ -106,7 +112,7 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\AbstractClas
 
         $insertData = array(
             "email_type"        => $this->_getEmailType(),
-            "fb_id"             => $userRawData['id'],
+            "fb_id"             => 0,
             "email_receiver"    => $userRawData['email'],
             "created"           => time(),
             "sendgrid_response" => json_encode($sendgridResponse),
@@ -121,7 +127,7 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\AbstractClas
      */
     protected function _getLogTable()
     {
-        return "log_send_email";
+        return "log_email_send";
     }
 
     /**

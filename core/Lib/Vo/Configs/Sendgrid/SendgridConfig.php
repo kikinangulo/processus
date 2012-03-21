@@ -6,7 +6,7 @@
  * Time: 1:13 PM
  * To change this template use File | Settings | File Templates.
  */
-namespace Processus\Lib\Vo\Sendgrid;
+namespace Processus\Lib\Vo\Configs\Sendgrid;
 class SendgridConfig extends \Processus\Abstracts\Vo\AbstractVO
 {
     /**
@@ -25,7 +25,7 @@ class SendgridConfig extends \Processus\Abstracts\Vo\AbstractVO
     private $_sgServerConfig;
 
     /**
-     * @return \Processus\Lib\Vo\Sendgrid\SendgridAuthor
+     * @return SendgridAuthor
      */
     public function getSgAuthor()
     {
@@ -37,7 +37,7 @@ class SendgridConfig extends \Processus\Abstracts\Vo\AbstractVO
     }
 
     /**
-     * @return \Processus\Lib\Vo\Sendgrid\SendgridCredentials
+     * @return SendgridCredentials
      */
     public function getSgCredentials()
     {
@@ -49,7 +49,7 @@ class SendgridConfig extends \Processus\Abstracts\Vo\AbstractVO
     }
 
     /**
-     * @return \Processus\Lib\Vo\Sendgrid\SendgridServerConfig
+     * @return SendgridServerConfig
      */
     public function getSgServerConfig()
     {

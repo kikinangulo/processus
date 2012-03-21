@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib\Vo\Configs\Amazon;
-class AmazongConfig extends \Processus\Abstracts\Vo\AbstractVO
+class AmazonConfig extends \Processus\Abstracts\Vo\AbstractVO
 {
     /**
      * @var S3Config

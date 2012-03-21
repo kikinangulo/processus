@@ -6,7 +6,7 @@
  * Time: 12:17 PM
  * To change this template use File | Settings | File Templates.
  */
-namespace Processus\Lib\Vo\Sendgrid;
+namespace Processus\Lib\Vo\Configs\Sendgrid;
 class SendgridServerConfig extends \Processus\Abstracts\Vo\AbstractVO
 {
 
