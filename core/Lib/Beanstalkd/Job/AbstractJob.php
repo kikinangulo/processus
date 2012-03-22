@@ -11,6 +11,12 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
     implements \Processus\Interfaces\InterfaceJob
 {
 
+    protected $_startTime;
+
+    protected $_runTime;
+
+    protected $_success;
+
     /**
      * @return null
      * @throws \Processus\Exceptions\NotImplementedException
