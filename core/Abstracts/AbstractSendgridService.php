@@ -36,6 +36,7 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractV
             $response = $this->_getMailClient()->addTo($receiverEmailAddress)
                 ->setSubject($subject)
                 ->setBodyHtml($bodyHtml)
+                ->addHeader('X-SMTPAPI', '{"category":' . $this->_getSendgridTrackCategory() . '}')
                 ->send();
 
             $userData             = array();
@@ -49,6 +50,12 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractV
         }
         return $response;
     }
+
+    /**
+     * @abstract
+     * @return mixed
+     */
+    abstract protected function _getSendgridTrackCategory();
 
     /**
      * @return \Zend\Mail\Transport\Smtp
@@ -70,7 +77,6 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractV
                 "host"
             ), array('port' => $procConfig->getSgServerConfig()->getValueByKey("port")));
             $this->_transport->setConfig($config);
-
         }
 
         return $this->_transport;
