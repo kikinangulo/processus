@@ -92,45 +92,6 @@ namespace Processus
         }
 
         /**
-         * @return \Zend\Log\Logger
-         */
-        public function getDebugLogger()
-        {
-            if (!$this->_debugLogger) {
-                $streamWriter       = new \Zend\Log\Writer\Stream(PATH_ROOT . '/logs/application/debug/zend.debug.log');
-                $this->_debugLogger = new \Zend\Log\Logger($streamWriter);
-            }
-
-            return $this->_debugLogger;
-        }
-
-        /**
-         * @return \Zend\Log\Logger
-         */
-        public function getProfilingLogger()
-        {
-            if (!$this->_profilingLogger) {
-                $streamWriter           = new \Zend\Log\Writer\Stream(PATH_ROOT . '/logs/application/profiling/zend.profiling.log');
-                $this->_profilingLogger = new \Zend\Log\Logger($streamWriter);
-            }
-
-            return $this->_profilingLogger;
-        }
-
-        /**
-         * @return \Zend\Log\Logger
-         */
-        public function getErrorLogger()
-        {
-            if (!$this->_errorLogger) {
-                $streamWriter       = new \Zend\Log\Writer\Stream(PATH_ROOT . '/logs/application/error/zend.error.log');
-                $this->_errorLogger = new \Zend\Log\Logger($streamWriter);
-            }
-
-            return $this->_errorLogger;
-        }
-
-        /**
          * @return Lib\Db\Memcached
          */
         public function getDefaultCache()
