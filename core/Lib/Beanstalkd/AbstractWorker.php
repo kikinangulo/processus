@@ -100,7 +100,7 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function getHost()
         {
-            return \Pheanstalk\Pheanstalk::DEFAULT_HOST;
+            return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerHost();
         }
 
         /**
@@ -116,7 +116,7 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function getPort()
         {
-            return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
+            return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerPort();
         }
 
         /**
