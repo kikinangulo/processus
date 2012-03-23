@@ -32,12 +32,18 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractV
     {
         $response = array();
 
-        try {
+        try
+        {
+
+            $header = '{"category":' . $this->_getSendgridTrackCategory() . '}';
+
             $response = $this->_getMailClient()->addTo($receiverEmailAddress)
                 ->setSubject($subject)
                 ->setBodyHtml($bodyHtml)
-                ->addHeader('X-SMTPAPI', '{"category":' . $this->_getSendgridTrackCategory() . '}')
+                ->addHeader('X-SMTPAPI', $header)
                 ->send();
+
+            var_dump($header);
 
             $userData             = array();
             $userData['email']    = $receiverEmailAddress;
@@ -45,7 +51,8 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractV
             $userData['subject']  = $subject;
             $this->_logSendEmail($userData, $response);
         }
-        catch (\Exception $error) {
+        catch (\Exception $error)
+        {
             throw $error;
         }
         return $response;
