@@ -7,11 +7,16 @@
  */
 namespace Processus\Lib\Vo\Configs
 {
-
-    use Processus\Abstracts\Vo\AbstractVO;
-
-    class BeanstalkdConfig extends AbstractVO
+    class BeanstalkdConfig extends \Processus\Abstracts\Vo\AbstractVO
     {
+        public function getServerPort()
+        {
+            return $this->getValueByKey('port');
+        }
 
+        public function getServerHost()
+        {
+            return $this->getValueByKey('host');
+        }
     }
 }

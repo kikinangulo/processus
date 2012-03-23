@@ -97,7 +97,7 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
      */
     protected function getHost()
     {
-        return \Pheanstalk\Pheanstalk::DEFAULT_HOST;
+        return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerHost();
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
      */
     protected function getPort()
     {
-        return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
+        return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerPort();
     }
 
     /**
