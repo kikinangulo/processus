@@ -7,6 +7,13 @@
     #################################################################
     -->
     <property file="build/build.properties" description="Base Properties"/>
+
+
+    <!--
+    #################################################################
+    Build targets
+    #################################################################
+    -->
     <target name="build" depends="clean, prepare, permissions, setup">
     </target>
 
@@ -89,7 +96,7 @@
     Project Skeleton
     #################################################################
     -->
-    <target name="-projectFolderSkeleton" description="Create application directory structure">
+    <target name="-projectFolderSkeleton" description="Create application directory structure" depends="clean, prepare, permissions" >
         <echo message=">>> Create application dir"/>
         <mkdir dir="${app.basedir}/../application"/>
         <copy todir="${app.basedir}/../application" >
@@ -143,8 +150,8 @@
     Initialize dabatase schema
     #################################################################
     -->
-    <target name="-initDb" description="Execute MySQL initschema">
-        <echo message="execute -> mysql:host=${db.mysql.host}; dbname=${db.mysql.name}; userid=${db.mysql.userid}; password=${db.mysql.password}" />
+    <target name="-initDb" description="Execute MySQL initschema" depends="-projectFolderSkeleton" >
+        <echo message="execute -> mysql:host=${db.mysql.host}; dbname=${db.mysql.name}; userid=${db.mysql.userid}; password=${db.mysql.password}; SQLdir=${db.sql.folder}" />
         <pdosqlexec url="mysql:host=${db.mysql.host}; dbname=${db.mysql.name}" userid="${db.mysql.userid}" password="${db.mysql.password}">
             <fileset dir="${db.sql.folder}">
                 <include name="*.sql"/>
