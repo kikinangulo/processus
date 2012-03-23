@@ -87,7 +87,22 @@
     SetUp Project
     #################################################################
     -->
-    <target name="setup" depends="-projectFolderSkeleton, -initDb">
+    <target name="setup" depends="-initDb, -projectFolderSkeleton">
+    </target>
+
+
+    <!--
+    #################################################################
+    Initialize dabatase schema
+    #################################################################
+    -->
+    <target name="-initDb" description="Execute MySQL initschema">
+        <echo message="execute -> mysql:host=${db.mysql.host}; dbname=${db.mysql.name}; userid=${db.mysql.userid}; password=${db.mysql.password}; SQLdir=${db.sql.folder}" />
+        <pdosqlexec url="mysql:host=${db.mysql.host}; dbname=${db.mysql.name}" userid="${db.mysql.userid}" password="${db.mysql.password}">
+            <fileset dir="${db.sql.folder}">
+                <include name="*.sql"/>
+            </fileset>
+        </pdosqlexec>
     </target>
 
 
@@ -96,7 +111,7 @@
     Project Skeleton
     #################################################################
     -->
-    <target name="-projectFolderSkeleton" description="Create application directory structure" depends="clean, prepare, permissions" >
+    <target name="-projectFolderSkeleton" description="Create application directory structure">
         <echo message=">>> Create application dir"/>
         <mkdir dir="${app.basedir}/../application"/>
         <copy todir="${app.basedir}/../application" >
@@ -143,21 +158,5 @@
         <echo message=">>> Move Processus to library dir"/>
         <move file="${app.basedir}/../Processus" todir="${app.basedir}/../library" includeemptydirs="true" />
     </target>
-
-
-    <!--
-    #################################################################
-    Initialize dabatase schema
-    #################################################################
-    -->
-    <target name="-initDb" description="Execute MySQL initschema" depends="-projectFolderSkeleton" >
-        <echo message="execute -> mysql:host=${db.mysql.host}; dbname=${db.mysql.name}; userid=${db.mysql.userid}; password=${db.mysql.password}; SQLdir=${db.sql.folder}" />
-        <pdosqlexec url="mysql:host=${db.mysql.host}; dbname=${db.mysql.name}" userid="${db.mysql.userid}" password="${db.mysql.password}">
-            <fileset dir="${db.sql.folder}">
-                <include name="*.sql"/>
-            </fileset>
-        </pdosqlexec>
-    </target>
-
 
 </project>
