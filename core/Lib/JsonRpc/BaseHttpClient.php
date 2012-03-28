@@ -118,7 +118,6 @@ abstract class BaseHttpClient
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 1);
         curl_setopt($ch, CURLOPT_URL, $this->getGateway());
         curl_setopt(
             $ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json",
@@ -152,7 +151,7 @@ abstract class BaseHttpClient
      *
      * @return array
      */
-    public function sendRpc(\Processus\Lib\JsonRpc\InterfaceJsonRpcRequest $rpcRequest)
+    public function sendRpc(\Processus\Lib\JsonRpc\InterfaceJsonRpcRequest $rpcRequest = null)
     {
         if ($rpcRequest) {
             $this->_requestList[] = $rpcRequest;
