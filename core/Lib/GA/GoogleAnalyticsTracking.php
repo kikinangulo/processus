@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib;
-class GoogleAnalyticsFactory
+class GoogleAnalyticsTracking
 {
 
     public static function track(GoogleAnalyticsDataVo $trackingVO)
