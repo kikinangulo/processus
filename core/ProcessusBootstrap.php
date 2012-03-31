@@ -185,7 +185,7 @@ namespace Processus
             );
             $this->_filesRequireFiles[] = $fileData;
 
-            require_once $classFile;
+            require $classFile;
         }
 
         /**
