@@ -243,8 +243,8 @@ namespace Processus
                 $returnValue        = array();
                 $error['trigger']   = "Auto Exception";
                 $error['backtrace'] = debug_backtrace();
-                $error['errorData'] = var_export($lastError, TRUE);
-                $error['params']    = var_export($errorObj, TRUE);
+                $error['errorData'] = $lastError;
+                $error['params']    = var_export($errorObj);
 
                 $returnValue['error'] = $error;
 
@@ -252,8 +252,7 @@ namespace Processus
                 return;
             }
 
-            if ($errorObj instanceof \RuntimeException)
-            {
+            if ($errorObj instanceof \RuntimeException) {
                 header('HTTP/1.1 500 Internal Server Error');
 
                 $debug            = array();
