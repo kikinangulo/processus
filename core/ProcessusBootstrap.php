@@ -88,6 +88,7 @@ namespace Processus
                 error_reporting(E_ALL | E_STRICT);
 
                 set_error_handler(array(
+
                                        "Processus\\ProcessusBootstrap",
                                        'handleError'
                                   ));
@@ -101,6 +102,7 @@ namespace Processus
                                            "Processus\\ProcessusBootstrap",
                                            'handleError'
                                       ));
+
                 //ini_set('display_errors', '0');
 
                 // cache current include path

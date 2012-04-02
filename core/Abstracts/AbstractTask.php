@@ -60,7 +60,7 @@ namespace Processus\Abstracts
          */
         protected function getHost()
         {
-            return \Pheanstalk\Pheanstalk::DEFAULT_HOST;
+            return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerHost();
         }
 
         /**
@@ -76,8 +76,35 @@ namespace Processus\Abstracts
          */
         protected function getPort()
         {
-            return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
+            return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerPort();
         }
+
+        /**
+         * @param $error
+         * @return bool
+         */
+        protected function _logErrorToMySql($error)
+        {
+            $pdo = $this->insert($this->ccFactory()
+                    ->setSqlTableName($this->_getLogTable())
+                    ->setSqlParams($this->_getSqlLogParams($error)
+                )
+            );
+            return $pdo;
+        }
+
+        /**
+         * @abstract
+         * @return string
+         */
+        abstract protected function _getLogTable ();
+
+        /**
+         * @abstract
+         * @param $rawObject
+         * @return array
+         */
+        abstract protected function _getSqlLogParams ($rawObject);
     }
 }
 

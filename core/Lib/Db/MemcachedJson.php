@@ -73,6 +73,9 @@ namespace Processus\Lib\Db
          */
         public function insert($key = "foobar", $value = array(), $expiredTime = 1)
         {
+            if (class_exists($value)) {
+                throw new \Processus\Exceptions\JsonRpc\ServerException("Can't json_encode a class!");
+            }
             $jsonDoc = json_encode($value);
             $this->_memcachedClient->set($key, $jsonDoc, $expiredTime);
             return $this->_memcachedClient->getResultCode();

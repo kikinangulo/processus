@@ -6,13 +6,8 @@
  * Time: 3:58 PM
  * To change this template use File | Settings | File Templates.
  */
-namespace Processus\Lib\Vo\Configs\Facebook
+namespace Processus\Lib\Vo\Configs;
+class FacebookConfig extends \Processus\Abstracts\Vo\AbstractVO
 {
 
-    use Processus\Abstracts\Vo\AbstractVO;
-
-    class Facebook extends AbstractVO
-    {
-
-    }
 }

@@ -2,11 +2,12 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: francis
- * Date: 11/15/11
- * Time: 4:01 PM
+ * Date: 3/10/12
+ * Time: 12:14 PM
  * To change this template use File | Settings | File Templates.
  */
-class OpenGraph
+namespace Processus\Interfaces;
+interface InterfaceJsonRpcServiceRequest extends InterfaceVo
 {
 
 }

@@ -67,7 +67,7 @@ namespace Processus\Lib\Db
          */
         public function fetchAll()
         {
-            throw new \Exception("Not implemented");
+            return $this->_memcachedClient->fetchAll();
         }
 
         /**
@@ -141,6 +141,16 @@ namespace Processus\Lib\Db
         public function delete($key)
         {
             return $this->_memcachedClient->delete($key);
+        }
+
+        /**
+         * @param $key
+         * @param $value
+         * @return bool
+         */
+        public function append($key, $value)
+        {
+            return $this->_memcachedClient->append($key, $value);
         }
     }
 }

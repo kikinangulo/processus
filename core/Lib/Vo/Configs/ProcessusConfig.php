@@ -26,11 +26,6 @@ namespace Processus\Lib\Vo\Configs
         private $_mysqlConfig;
 
         /**
-         * @var \Processus\Lib\Vo\Configs\Facebook\Facebook
-         */
-        private $_facebookConfig;
-
-        /**
          * @var \Processus\Lib\Vo\Configs\ProfilerConfig
          */
         private $_profilerConfig;
@@ -40,36 +35,6 @@ namespace Processus\Lib\Vo\Configs
          */
         private $_applicationConfig;
 
-        /**
-         * @var \Processus\Lib\Vo\Configs\Amazon\AmazongConfig
-         */
-        private $_amazonConfig;
-
-        /**
-         * @return Amazon\AmazongConfig
-         */
-        public function getAmazonConfig()
-        {
-            if (!$this->_amazonConfig) {
-                $this->_amazonConfig = new \Processus\Lib\Vo\Configs\Amazon\AmazongConfig();
-                $this->_amazonConfig->setData($this->getValueByKey("Amazon"));
-            }
-
-            return $this->_amazonConfig;
-        }
-
-        /**
-         * @return \Processus\Lib\Vo\Configs\Facebook\Facebook
-         */
-        public function getFacebookConfig()
-        {
-            if (!$this->_facebookConfig) {
-                $this->_facebookConfig = new \Processus\Lib\Vo\Configs\Facebook\Facebook();
-                $this->_facebookConfig->setData($this->getValueByKey("Facebook"));
-            }
-
-            return $this->_facebookConfig;
-        }
 
         /**
          * @return \Processus\Lib\Vo\Configs\CouchbaseConfig
@@ -155,4 +120,3 @@ namespace Processus\Lib\Vo\Configs
 
     }
 }
-?>

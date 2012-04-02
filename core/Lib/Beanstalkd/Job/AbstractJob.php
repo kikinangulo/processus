@@ -8,13 +8,24 @@
  */
 namespace Processus\Lib\Beanstalkd\Job;
 abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
+    implements \Processus\Interfaces\InterfaceJob
 {
 
+    protected $_startTime;
+
+    protected $_runTime;
+
+    protected $_success;
+
     /**
-     * @abstract
-     * @return void
+     * @return null
+     * @throws \Processus\Exceptions\NotImplementedException
      */
-    abstract public function startJob();
+    public function startJob()
+    {
+        throw new \Processus\Exceptions\NotImplementedException("Missing Implementation");
+        return NULL;
+    }
 
     /**
      * @var \Pheanstalk\Pheanstalk
@@ -86,7 +97,7 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
      */
     protected function getHost()
     {
-        return \Pheanstalk\Pheanstalk::DEFAULT_HOST;
+        return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerHost();
     }
 
     /**
@@ -102,6 +113,38 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
      */
     protected function getPort()
     {
-        return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
+        return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerPort();
     }
+
+    /**
+     * @param $error
+     *
+     * @return bool
+     */
+    protected function _logErrorToMySql($error)
+    {
+        $pdo = $this->insert(
+            $this->ccFactory()
+                ->setSqlTableName($this->_getLogTable())
+                ->setSqlParams(
+                $this->_getSqlLogParams($error)
+            )
+        );
+        return $pdo;
+    }
+
+    /**
+     * @abstract
+     * @return string
+     */
+    abstract protected function _getLogTable();
+
+    /**
+     * @abstract
+     *
+     * @param $rawObject
+     *
+     * @return array
+     */
+    abstract protected function _getSqlLogParams($rawObject);
 }

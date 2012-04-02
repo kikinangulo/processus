@@ -23,7 +23,7 @@ namespace Processus\Lib\Beanstalkd
             }
             catch (\Exception $error)
             {
-
+                $this->_logErrorToMySql($error);
             }
 
         }
@@ -35,13 +35,35 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function _logErrorToMySql($error)
         {
-            return TRUE;
+            $pdo = $this->insert($this->ccFactory()
+                    ->setSqlTableName($this->_getLogTable())
+                    ->setSqlParams($this->_getSqlLogParams($error)
+                )
+            );
+            return $pdo;
         }
+
+        /**
+         * @abstract
+         * @return string
+         */
+        abstract protected function _getLogTable ();
+
+        /**
+         * @abstract
+         * @param $rawObject
+         * @return array
+         */
+        abstract protected function _getSqlLogParams ($rawObject);
 
         public function run()
         {
-            $job = $this->getPheanstalk()->watch($this->getTube())->reserve();
-            trace(var_export($this->_getStats()));
+            /** @var $job \Pheanstalk\Job */
+            $job = $this->getPheanstalk()->watch($this->getTube())->ignore("default")->reserve();
+            echo "Get Data" . PHP_EOL;
+            var_export($job->getData(), TRUE);
+            $this->getPheanstalk()->delete($job);
+            //trace(var_export($this->_getStats()));
         }
 
         /**
@@ -57,7 +79,8 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function getPheanstalk()
         {
-            if (!$this->_pheanstalk) {
+            if (!$this->_pheanstalk)
+            {
                 $this->_pheanstalk = new \Pheanstalk\Pheanstalk($this->getHost(), $this->getPort());
             }
 
@@ -77,7 +100,7 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function getHost()
         {
-            return \Pheanstalk\Pheanstalk::DEFAULT_HOST;
+            return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerHost();
         }
 
         /**
@@ -93,7 +116,21 @@ namespace Processus\Lib\Beanstalkd
          */
         protected function getPort()
         {
-            return \Pheanstalk\Pheanstalk::DEFAULT_PORT;
+            return $this->getProcessusContext()->getRegistry()->getProcessusConfig()->getBeanstalkdConfig()->getServerPort();
+        }
+
+        /**
+         *
+         */
+        protected function _logToMySql()
+        {
+            $sqlTable  = "log_task";
+            $sqlParams = array();
+
+            $this->insert($this->ccFactory()
+                    ->setSqlTableName($sqlTable)
+                    ->setSqlParams($sqlParams)
+            );
         }
     }
 }

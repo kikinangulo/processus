@@ -17,11 +17,11 @@ namespace Processus\Abstracts\JsonRpc
          */
         public function toJson()
         {
+
             if ($this->isError()) {
 
                 $response = array();
                 $error    = array();
-
                 $error['code']    = $this->getError()->getCode();
                 $error['message'] = $this->getError()->getMessage();
                 $error['data']    = $this->getError()->getData();
@@ -30,16 +30,6 @@ namespace Processus\Abstracts\JsonRpc
                 }
 
                 $response['error'] = $error;
-                $response['id']    = $this->getId();
-
-            }
-            else
-            {
-
-                $response                       = array();
-                $response['result']             = $this->getResult();
-                $response['id']                 = $this->getId();
-
             }
 
             if (null !== ($version = $this->getVersion())) {
@@ -75,10 +65,19 @@ namespace Processus\Abstracts\JsonRpc
                     "app"         => $app,
                     "system"      => $system,
                     "profiling"   => $this->_getProfiler()->getProfilerStack(),
+                    'fileStack'   => $fileStack,
                     'fileStack'   => $requireList,
                 );
 
                 $response['debug'] = $debugInfo;
+                $response['id']    = $this->getId();
+
+            }
+            else
+            {
+                $response           = array();
+                $response['result'] = $this->getResult();
+                $response['id']     = $this->getId();
 
             }
 
