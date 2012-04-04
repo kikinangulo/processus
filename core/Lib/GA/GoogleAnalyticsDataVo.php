@@ -7,20 +7,57 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib;
-class GoogleAnalyticsDataVo extends \Processus\Abstracts\Vo\AbstractVO
+class GoogleAnalyticsDataVo extends \Processus\Abstracts\Vo\AbstractVO implements \Processus\Lib\GA\InterfaceGoogleAnalyticsData
 {
-    /**
-     * @var \UnitedPrototype\GoogleAnalytics\Page
-     */
-    private $_page;
 
     /**
-     * @var \UnitedPrototype\GoogleAnalytics\Tracker
+     *
+     * @param \Processus\Interfaces\InterfaceVo $config
+     *
+     * @return mixed
      */
-    private $_tracker;
+    public function setConfig(\Processus\Interfaces\InterfaceVo $config)
+    {
+        // TODO: Implement setConfig() method.
+    }
 
     /**
-     * @var \UnitedPrototype\GoogleAnalytics\Session
+     * @return \Processus\Interfaces\InterfaceVo
      */
-    private $_session;
+    public function getConfig()
+    {
+        // TODO: Implement getConfig() method.
+    }
+
+    /**
+     * @return \UnitedPrototype\GoogleAnalytics\Visitor
+     */
+    public function getVisitor()
+    {
+        // TODO: Implement getVisitor() method.
+    }
+
+    /**
+     * @return \UnitedPrototype\GoogleAnalytics\Tracker
+     */
+    public function getTracker()
+    {
+        // TODO: Implement getTracker() method.
+    }
+
+    /**
+     * @return \UnitedPrototype\GoogleAnalytics\Page
+     */
+    public function getPage()
+    {
+        // TODO: Implement getPage() method.
+    }
+
+    /**
+     * @return \UnitedPrototype\GoogleAnalytics\Session
+     */
+    public function getSession()
+    {
+        // TODO: Implement getSession() method.
+    }
 }
