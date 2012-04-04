@@ -66,9 +66,8 @@ namespace Processus\Abstracts\Vo
             try {
                 return $this->_data;
             }
-            catch (\Exception $error)
-            {
-                return null;
+            catch (\Exception $error) {
+                return NULL;
             }
         }
 
@@ -83,6 +82,13 @@ namespace Processus\Abstracts\Vo
             return $dto;
         }
 
+        /**
+         * @return string
+         */
+        public function toJson()
+        {
+            return json_encode($this->_data);
+        }
     }
 }
 
