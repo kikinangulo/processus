@@ -103,7 +103,9 @@ namespace Processus
                     ->getCouchbaseConfig()
                     ->getCouchbasePortByDatabucketKey("default");
 
-                $this->_memcached = \Processus\Lib\Server\ServerFactory::memcachedFactory($config['host'], $config['port']);
+                $this->_memcached = \Processus\Lib\Server\ServerFactory::memcachedFactory(
+                    $config['host'], $config['port']
+                );
             }
 
             return $this->_memcached;
@@ -136,6 +138,16 @@ namespace Processus
         }
 
         /**
+         * @param ProcessusRegistry $registry
+         * @return ProcessusContext
+         */
+        public function setRegistry(ProcessusRegistry $registry)
+        {
+            $this->_registry = $registry;
+            return $this;
+        }
+
+        /**
          * @return Lib\Facebook\FacebookClient
          */
         public function getFacebookClient()
@@ -149,7 +161,7 @@ namespace Processus
         // #########################################################
 
         /**
-         * @return \Processus\Lib\Bo\UserBo
+         * @return Lib\Bo\UserBo
          */
         public function getUserBo()
         {
@@ -157,6 +169,17 @@ namespace Processus
                 $this->_userBo = new \Processus\Lib\Bo\UserBo();
             }
             return $this->_userBo;
+        }
+
+        /**
+         * @param Lib\Bo\UserBo $bo
+         *
+         * @return ProcessusContext
+         */
+        public function setUserBo(\Processus\Lib\Bo\UserBo $bo)
+        {
+            $this->_userBo = $bo;
+            return $this;
         }
 
         // #########################################################

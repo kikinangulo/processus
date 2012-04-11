@@ -23,18 +23,34 @@ class ServerFactory
     /**
      * @static
      *
+     * @param int    $memcachedFatoryType
      * @param string $host
      * @param string $port
      * @param string $id
      *
-     * @return \Memcached
+     * @return mixed
+     * @throws \Exception
      */
-    public static function memcachedFactory(\string $host, \string $port, $id = "default")
+    public static function memcachedFactory(
+        \int $memcachedFatoryType = \Processus\Consta\MemcachedFactoryType::MEMCACHED_BINARY,
+        \string $host = "127.0.0.1", \string $port = "11211", $id = "default"
+    )
     {
-        $poolKey = md5($host . $port . $id);
+        $poolKey   = md5($host . $port . $id . $memcachedFatoryType);
+        $memcached = NULL;
 
         if (array_key_exists($poolKey, self::$_couchbasePool) === FALSE) {
-            $memcached                      = new \Processus\Lib\Db\Memcached($host, $port, $poolKey);
+            switch ($memcachedFatoryType) {
+                case \Processus\Consta\MemcachedFactoryType::MEMCACHED_BINARY:
+                    $memcached = new \Processus\Lib\Db\Memcached($host, $port, $poolKey);
+                    break;
+                case \Processus\Consta\MemcachedFactoryType::MEMCACHED_JSON:
+                    $memcached = new \Processus\Lib\Db\MemcachedJson($host, $port, $poolKey);
+                    break;
+                default:
+                    throw new \Exception("FactoryType not declared");
+            }
+
             self::$_couchbasePool[$poolKey] = $memcached;
         }
 
