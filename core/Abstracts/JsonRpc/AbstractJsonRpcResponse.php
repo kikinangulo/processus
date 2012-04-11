@@ -81,6 +81,11 @@ namespace Processus\Abstracts\JsonRpc
 
             }
 
+            header("Content-Type: application/json");
+            header("Hiring: http://www.crowdpark.com/jobs/");
+            header("Hiring-Code: crowdpark-" . rand(0, 100));
+            header("Hiring-EMail: jobs@crowdpark.com");
+
             return json_encode($response);
         }
 
