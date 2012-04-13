@@ -24,6 +24,7 @@ namespace Processus\Lib\Db
             $this->_memcachedClient->setOption(\Memcached::OPT_CACHE_LOOKUPS, TRUE);
             $this->_memcachedClient->setOption(\Memcached::OPT_NO_BLOCK, TRUE);
             $this->_memcachedClient->setOption(\Memcached::OPT_POLL_TIMEOUT, 500);
+            $this->_memcachedClient->setOption(\Memcached::SERIALIZER_JSON, TRUE);
 
             if (count($this->_memcachedClient->getServerList()) <= 1) {
                 $this->_memcachedClient->addServer($host, $port);
@@ -73,7 +74,7 @@ namespace Processus\Lib\Db
          */
         public function insert($key = "foobar", $value = array(), $expiredTime = 1)
         {
-            if (class_exists($value)) {
+            if (class_exists($value, false)) {
                 throw new \Processus\Exceptions\JsonRpc\ServerException("Can't json_encode a class!");
             }
             $jsonDoc = json_encode($value);
