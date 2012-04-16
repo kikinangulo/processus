@@ -79,14 +79,12 @@ namespace Processus\Lib\Facebook
         {
             if (!$this->_userFacebookData) {
 
-                try
-                {
+                try {
 
                     $this->_userFacebookData = $this->getFacebookSdk()->api("/me");
 
                 }
-                catch (\Exception $error)
-                {
+                catch (\Exception $error) {
                     throw $error;
                 }
             }
@@ -107,26 +105,29 @@ namespace Processus\Lib\Facebook
          */
         public function getUserId()
         {
-            if(!$this->_userId)
-            {
+            if (!$this->_userId) {
                 $this->_userId = $this->getFacebookSdk()->getUser();
             }
             return $this->_userId;
         }
 
         /**
+         * @param null $userFbId
+         *
          * @return mixed
          */
-        public function getUserFriends()
+        public function getUserFriends($userFbId = null)
         {
-            $defaultCache = $this->getProcessusContext()->getDefaultCache();
-            $fbNum        = $this->getUserId();
-            $memKey       = "FacebookClient_getUserFriends_" . $fbNum;
-
+            $id = 'me';
+            if ((int)$userFbId > 0) {
+                $id = $userFbId;
+            }
+            $defaultCache    = $this->getProcessusContext()->getDefaultCache();
+            $fbNum           = (int)$userFbId > 0 ? $userFbId : $this->getUserId();
+            $memKey          = "FacebookClient_getUserFriends_" . $fbNum;
             $facebookFriends = $defaultCache->fetch($memKey);
-
-            if (!$facebookFriends) {
-                $rawData         = $this->getFacebookSdk()->api("/me/friends");
+            if (!$facebookFriends && is_null($userFbId)) {
+                $rawData         = $this->getFacebookSdk()->api("/" . $id . "/friends");
                 $facebookFriends = $rawData['data'];
 
                 $defaultCache->insert($memKey, $facebookFriends, 60 * 60 * 3);
@@ -173,8 +174,7 @@ namespace Processus\Lib\Facebook
             try {
                 $userData = $this->getFacebookSdk()->api("/" . $facebookUserId);
             }
-            catch (\Exception $error)
-            {
+            catch (\Exception $error) {
                 throw $error;
             }
 
