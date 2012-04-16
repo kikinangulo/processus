@@ -118,19 +118,21 @@ namespace Processus\Lib\Facebook
          */
         public function getUserFriends($userFbId = null)
         {
-            $id = 'me';
-            if ((int)$userFbId > 0) {
-                $id = $userFbId;
-            }
             $defaultCache    = $this->getProcessusContext()->getDefaultCache();
             $fbNum           = (int)$userFbId > 0 ? $userFbId : $this->getUserId();
+
             $memKey          = "FacebookClient_getUserFriends_" . $fbNum;
             $facebookFriends = $defaultCache->fetch($memKey);
+
             if (!$facebookFriends && is_null($userFbId)) {
-                $rawData         = $this->getFacebookSdk()->api("/" . $id . "/friends");
+                $rawData         = $this->getFacebookSdk()->api("/me/friends");
                 $facebookFriends = $rawData['data'];
 
                 $defaultCache->insert($memKey, $facebookFriends, 60 * 60 * 3);
+
+                // update users_relations table with his friends
+                $managerUserRelations = new \Application\Manager\UsersRelations\UsersRelationsManager();
+                $managerUserRelations->updateUserFriends();
             }
 
             return $facebookFriends;
