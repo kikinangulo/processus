@@ -122,7 +122,7 @@ namespace Processus\Abstracts\Vo {
          *
          * @todo checking more result code from memcached and throw exception is something wrong
          */
-        private function _checkResultCode(\int $resultCode)
+        protected function _checkResultCode(\int $resultCode)
         {
             switch ($resultCode)
             {
