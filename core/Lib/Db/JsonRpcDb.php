@@ -2,21 +2,13 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: francis
- * Date: 3/12/12
- * Time: 1:06 PM
+ * Date: 4/10/12
+ * Time: 9:42 AM
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib\Db;
-
-require "../../Contrib/Riak/riak.php";
-
-class RiakClient implements \Processus\Interfaces\InterfaceDatabase
+class JsonRpcDb implements \Processus\Interfaces\InterfaceDatabase
 {
-
-    /**
-     * @var RiakClient
-     */
-    private $_client;
 
     /**
      *
