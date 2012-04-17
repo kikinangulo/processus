@@ -13,17 +13,32 @@ interface InterfaceGoogleAnalyticsData extends \Processus\Interfaces\InterfaceVo
     /**
      * @abstract
      *
-     * @param \Processus\Interfaces\InterfaceVo $config
+     * @param string $host
      *
      * @return mixed
      */
-    public function setConfig(\Processus\Interfaces\InterfaceVo $config);
+    public function setHost($host);
 
     /**
      * @abstract
-     * @return \Processus\Interfaces\InterfaceVo
+     * @return string
      */
-    public function getConfig();
+    public function getHost();
+
+    /**
+     * @abstract
+     *
+     * @param string $uid
+     *
+     * @return mixed
+     */
+    public function setGaUid($uid);
+
+    /**
+     * @abstract
+     * @return string
+     */
+    public function getGaUid();
 
     /**
      * @abstract
@@ -39,9 +54,12 @@ interface InterfaceGoogleAnalyticsData extends \Processus\Interfaces\InterfaceVo
 
     /**
      * @abstract
-     * @return \UnitedPrototype\GoogleAnalytics\Page
+     *
+     * @param string $pageToTrack
+     *
+     * @return mixed
      */
-    public function getPage();
+    public function getPage($pageToTrack = "/");
 
     /**
      * @abstract
