@@ -102,7 +102,9 @@ namespace Processus\Abstracts\Vo {
                 throw $mvoException;
             }
 
-            $resultCode = $this->getMemcachedClient()->insert($this->getMemId(), $this->getData(), $this->getExpiredTime());
+            $resultCode = $this->getMemcachedClient()->insert(
+                $this->getMemId(), $this->getData(), $this->getExpiredTime()
+            );
             $this->_checkResultCode($resultCode);
             $this->_updated();
             return $resultCode;
@@ -122,10 +124,9 @@ namespace Processus\Abstracts\Vo {
          *
          * @todo checking more result code from memcached and throw exception is something wrong
          */
-        private function _checkResultCode(\int $resultCode)
+        protected function _checkResultCode(\int $resultCode)
         {
-            switch ($resultCode)
-            {
+            switch ($resultCode) {
                 case \Memcached::RES_BAD_KEY_PROVIDED:
                     break;
                 case \Memcached::RES_FAILURE:
@@ -143,7 +144,7 @@ namespace Processus\Abstracts\Vo {
         public function deleteFromMem()
         {
             $this->getMemcachedClient()->delete($this->getMemId());
-            return true;
+            return TRUE;
         }
 
         /**
@@ -164,7 +165,9 @@ namespace Processus\Abstracts\Vo {
             if (!$this->_memcachedClient) {
                 try {
 
-                    $this->_memcachedClient = \Processus\Lib\Server\ServerFactory::memcachedFactory($this->getMembaseHost(), $this->getDataBucketPort());
+                    $this->_memcachedClient = \Processus\Lib\Server\ServerFactory::memcachedFactory(
+                        $this->getMembaseHost(), $this->getDataBucketPort()
+                    );
 
                 }
                 catch (\Exception $error) {
