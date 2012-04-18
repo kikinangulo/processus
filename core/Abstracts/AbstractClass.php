@@ -9,6 +9,15 @@ namespace Processus\Abstracts
 {
     abstract class AbstractClass
     {
+
+        /**
+         * @return \Application\ApplicationContext
+         */
+        public function getApplicationContext()
+        {
+            return \Application\ApplicationContext::getInstance();
+        }
+
         /**
          * @return \Processus\ProcessusContext
          */

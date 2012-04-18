@@ -22,14 +22,14 @@ namespace Processus\Abstracts\JsonRpc
 
                 $response = array();
                 $error    = array();
-
-                $error['code']     = $this->getError()->getCode();
-                $error['message']  = $this->getError()->getMessage();
-                $error['data']     = $this->getError()->getData();
-                $error['stack']    = $this->getError()->getData()->getTraceAsString();
+                $error['code']    = $this->getError()->getCode();
+                $error['message'] = $this->getError()->getMessage();
+                $error['data']    = $this->getError()->getData();
+                if (is_object($error['data'])) {
+                    $error['stack']   = $this->getError()->getData()->getTraceAsString();
+                }
 
                 $response['error'] = $error;
-
             }
 
             if (null !== ($version = $this->getVersion())) {

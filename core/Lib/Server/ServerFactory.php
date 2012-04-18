@@ -32,8 +32,8 @@ class ServerFactory
      * @throws \Exception
      */
     public static function memcachedFactory(
-        \string $host = "127.0.0.1", \string $port = "11211", $id = "default",
-        \int $memcachedFactoryType = \Processus\Consta\MemcachedFactoryType::MEMCACHED_BINARY
+        $host = "127.0.0.1", $port = "11211", $id = "default",
+        $memcachedFactoryType = \Processus\Consta\MemcachedFactoryType::MEMCACHED_BINARY
     )
     {
         $poolKey   = md5($host . $port . $id . $memcachedFactoryType);
