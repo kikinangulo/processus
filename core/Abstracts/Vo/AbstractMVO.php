@@ -1,8 +1,6 @@
 <?php
 
 namespace Processus\Abstracts\Vo {
-    use \string;
-
     /**
      * User: francis
      * Date: 7/29/11
@@ -74,7 +72,7 @@ namespace Processus\Abstracts\Vo {
          *
          * @return AbstractMVO
          */
-        public function setMemId(string $mId)
+        public function setMemId($mId)
         {
             $this->_memId = $mId;
             return $this;

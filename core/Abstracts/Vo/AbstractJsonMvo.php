@@ -76,9 +76,10 @@ class AbstractJsonMVO extends AbstractMVO
      *
      * @return AbstractJsonMVO
      */
-    public function setMemId(string $mId)
+    public function setMemId($mId)
     {
         $this->_id = $mId;
+        parent::setMemId($mId);
         return $this;
     }
 }

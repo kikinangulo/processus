@@ -36,11 +36,11 @@ class ServerFactory
         \int $memcachedFactoryType = \Processus\Consta\MemcachedFactoryType::MEMCACHED_BINARY
     )
     {
-        $poolKey   = md5($host . $port . $id . $memcachedFatoryType);
+        $poolKey   = md5($host . $port . $id . $memcachedFactoryType);
         $memcached = NULL;
 
         if (array_key_exists($poolKey, self::$_couchbasePool) === FALSE) {
-            switch ($memcachedFatoryType) {
+            switch ($memcachedFactoryType) {
                 case \Processus\Consta\MemcachedFactoryType::MEMCACHED_BINARY:
                     $memcached = new \Processus\Lib\Db\Memcached($host, $port, $poolKey);
                     break;
