@@ -5,33 +5,40 @@
  *
  *
  */
-namespace Processus\Abstracts
+namespace Processus\Abstracts;
+abstract class AbstractClass
 {
-    abstract class AbstractClass
+
+    /**
+     * @return \Application\ApplicationContext
+     */
+    public function getApplicationContext()
     {
-        /**
-         * @return \Processus\ProcessusContext
-         */
-        protected function getProcessusContext()
-        {
-            return \Processus\ProcessusContext::getInstance();
-        }
+        return \Application\ApplicationContext::getInstance();
+    }
 
-        /**
-         * @return mixed | array | stdClass
-         */
-        protected function config()
-        {
-            return $this->getProcessusContext()->getRegistry()->getConfig($this);
-        }
+    /**
+     * @return \Processus\ProcessusContext
+     */
+    protected function getProcessusContext()
+    {
+        return \Processus\ProcessusContext::getInstance();
+    }
 
-        /**
-         * @return \Processus\Lib\Profiler\ProcessusProfiler
-         */
-        protected function getProfiler()
-        {
-            return \Processus\Lib\Profiler\ProcessusProfiler::getInstance();
-        }
+    /**
+     * @return mixed | array | stdClass
+     */
+    protected function config()
+    {
+        return $this->getProcessusContext()->getRegistry()->getConfig($this);
+    }
+
+    /**
+     * @return \Processus\Lib\Profiler\ProcessusProfiler
+     */
+    protected function getProfiler()
+    {
+        return \Processus\Lib\Profiler\ProcessusProfiler::getInstance();
     }
 }
 
