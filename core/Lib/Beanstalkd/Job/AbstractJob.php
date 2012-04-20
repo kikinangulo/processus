@@ -87,7 +87,7 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
     protected function getPheanstalk()
     {
         if (!$this->_pheanstalk) {
-            $this->_pheanstalk = new \Pheanstalk\Pheanstalk($this->getHost(), $this->getPort());
+            $this->_pheanstalk = \Application\Factory\PheanstalkFactory::factory($this->getHost(), $this->getPort());
         }
 
         return $this->_pheanstalk;
