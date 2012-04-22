@@ -135,7 +135,7 @@ namespace Processus\Lib\Bo
 
             $fbUserId = $this->getFacebookUserId();
 
-            if ($fbUserId)
+            if ($fbUserId > 0)
             {
 
                 $mvo      = $this->getFacebookUserMvo();
@@ -152,7 +152,7 @@ namespace Processus\Lib\Bo
             }
             else
             {
-                return $this->getProcessusContext()->getFacebookClient()->getLoginUrl();
+                return FALSE;
             }
         }
 

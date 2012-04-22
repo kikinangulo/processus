@@ -28,6 +28,11 @@ namespace Processus\Dto
                 "gender" => "gender"
             );
         }
+
+        protected function _getDtoCachingId()
+        {
+
+        }
     
     }
 }
