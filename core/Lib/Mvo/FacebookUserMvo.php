@@ -121,6 +121,17 @@ namespace Processus\Lib\Mvo
         }
 
         /**
+         * @param $gender
+         *
+         * @return \Processus\Lib\Mvo\FacebookUserMvo
+         */
+        public function setGender($gender)
+        {
+            $this->setValueByKey('gender', $gender);
+            return $this;
+        }
+
+        /**
          * @return array|mixed
          */
         public function getEmail()
@@ -145,6 +156,17 @@ namespace Processus\Lib\Mvo
         public function getLocale()
         {
             return $this->getValueByKey('locale');
+        }
+
+        /**
+         * @param $locale
+         *
+         * @return \Processus\Lib\Mvo\FacebookUserMvo
+         */
+        public function setLocale($locale)
+        {
+            $this->setValueByKey('locale', $locale);
+            return $this;
         }
 
         /**
