@@ -11,6 +11,14 @@ namespace Processus\Abstracts\JsonRpc
     {
 
         /**
+         * @return string
+         */
+        protected function getUserId()
+        {
+            return $this->getProcessusContext()->getUserBo()->getFacebookUserId();
+        }
+
+        /**
          * @return AbstractJsonRpcRequest
          */
         protected function _getRawRequest()

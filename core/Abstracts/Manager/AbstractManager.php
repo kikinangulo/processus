@@ -5,6 +5,13 @@ namespace Processus\Abstracts\Manager
 
     abstract class AbstractManager extends \Processus\Abstracts\AbstractClass
     {
+        /**
+         * @return string
+         */
+        protected function getUserId()
+        {
+            return $this->getProcessusContext()->getUserBo()->getFacebookUserId();
+        }
 
         /**
          * @var \Processus\Lib\Db\Memcached
@@ -41,7 +48,9 @@ namespace Processus\Abstracts\Manager
                     ->getCouchbaseConfig()
                     ->getCouchbasePortByDatabucketKey($this->getDataBucketKey());
 
-                $this->_memcached = \Processus\Lib\Server\ServerFactory::memcachedFactory($config['host'], $config['port']);
+                $this->_memcached = \Processus\Lib\Server\ServerFactory::memcachedFactory(
+                    $config['host'], $config['port']
+                );
             }
 
             return $this->_memcached;
@@ -156,7 +165,9 @@ namespace Processus\Abstracts\Manager
          */
         protected function update(\Processus\Interfaces\InterfaceComConfig $com)
         {
-            return $com->getConnector()->update($com->getSqlTableName(), $com->getSqlParams(), $com->getSqlUpdateConditions());
+            return $com->getConnector()->update(
+                $com->getSqlTableName(), $com->getSqlParams(), $com->getSqlUpdateConditions()
+            );
         }
 
         // #########################################################
