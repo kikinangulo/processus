@@ -55,8 +55,6 @@ namespace Processus\Abstracts\JsonRpc
             );
 
             return $mysql->insert($this->_getLogTransactionTable(), $insertData);
-
-            return TRUE;
         }
 
         /**

@@ -11,10 +11,19 @@ abstract class AbstractJob extends \Processus\Abstracts\Manager\AbstractManager
     implements \Processus\Interfaces\InterfaceJob
 {
 
+    /**
+     * @var float
+     */
     protected $_startTime;
 
+    /**
+     * @var float
+     */
     protected $_runTime;
 
+    /**
+     * @var boolean
+     */
     protected $_success;
 
     /**
