@@ -18,9 +18,10 @@ namespace Processus\Interfaces
 
         /**
          * @abstract
-         * @return object
+         *
+         * @param $rawData
          */
-        public function export();
+        public function export($rawData = null);
     }
 }
 
