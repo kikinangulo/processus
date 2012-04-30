@@ -129,7 +129,8 @@ abstract class AbstractSendgridService extends \Processus\Abstracts\Vo\AbstractV
             "email_receiver"    => $userRawData['email'],
             "created"           => time(),
             "sendgrid_response" => json_encode($sendgridResponse),
-            "raw_data"          => json_encode($userRawData),
+            // raw_data not needed for once successfully delivered emails...
+            // "raw_data"          => json_encode($userRawData),
         );
 
         $mysql->insert($this->_getLogTable(), $insertData);
