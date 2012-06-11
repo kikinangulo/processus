@@ -80,7 +80,7 @@ namespace Processus
                 spl_autoload_register(array(
                                            $this,
                                            '_autoLoad'
-                                      ));
+                                      ), true, true);
 
                 // display errors for the following part
                 ini_set('display_errors', '1');
