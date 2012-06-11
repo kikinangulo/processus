@@ -1,3 +1,6 @@
 [submodule "contrib/pheanstalk"]
 	path = contrib/pheanstalk
 	url = git@github.com:Crowdpark/pheanstalk.git
+[submodule "core/Contrib/crowdstats"]
+	path = core/Contrib/crowdstats
+	url = git@github.com:Crowdpark/crowdstats.git
