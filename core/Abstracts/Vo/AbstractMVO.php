@@ -26,7 +26,7 @@ namespace Processus\Abstracts\Vo {
         protected $_hashAlgo;
 
         /**
-         * @var Memcached
+         * @var \Processus\Lib\Db\Memcached
          */
         protected $_memcachedClient;
 
@@ -155,8 +155,8 @@ namespace Processus\Abstracts\Vo {
         }
 
         /**
-         * @throws Exception
          * @return \Processus\Lib\Db\Memcached
+         * @throws \Exception
          */
         public function getMemcachedClient()
         {
@@ -164,6 +164,8 @@ namespace Processus\Abstracts\Vo {
                 try {
 
                     $this->_memcachedClient = \Processus\Lib\Server\ServerFactory::memcachedFactory(
+                        $this->getMembaseHost(), $this->getDataBucketPort(),
+                        \Processus\Consta\MemcachedFactoryType::MEMCACHED_JSON,
                         $this->getMembaseHost(), $this->getDataBucketPort()
                     );
 

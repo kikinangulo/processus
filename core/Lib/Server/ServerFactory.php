@@ -28,7 +28,7 @@ class ServerFactory
      * @param string $id
      * @param int    $memcachedFactoryType
      *
-     * @return mixed
+     * @return \Processus\Lib\Db\Memcached
      * @throws \Exception
      */
     public static function memcachedFactory(

@@ -151,7 +151,7 @@ abstract class BaseHttpClient
      *
      * @return array
      */
-    public function sendRpc(\Processus\Lib\JsonRpc\InterfaceJsonRpcRequest $rpcRequest)
+    public function sendRpc(\Processus\Lib\JsonRpc\InterfaceJsonRpcRequest $rpcRequest = null)
     {
         if ($rpcRequest) {
             $this->_requestList[] = $rpcRequest;
