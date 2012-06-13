@@ -134,9 +134,7 @@ namespace Processus
 
                 return $this;
 
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 echo json_encode($e);
                 return FALSE;
             }
@@ -175,17 +173,23 @@ namespace Processus
             $classFile = $rootPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $pathParts) . '.php';
 
             if (!file_exists($classFile)) {
-                throw new \Zend\Di\Exception\ClassNotFoundException('Class not found! -> ' . $classFile);
+                if (count(spl_autoload_functions()) == 1) {
+                    throw new \Zend\Di\Exception\ClassNotFoundException('Class not found! -> ' . $classFile);
+                }
+                else {
+                    // I hope one of the other autoloaders will find that!!!
+                    error_log("[[$className] = [$classFile]] not found, but there are other autoloaders registered!");
+                }
+            } else {
+                $currentTime                = microtime(TRUE) - $this->_startTime;
+                $fileData                   = array(
+                    'file' => $classFile,
+                    'time' => $currentTime * 1000,
+                );
+                $this->_filesRequireFiles[] = $fileData;
+
+                require_once $classFile;
             }
-
-            $currentTime                = microtime(TRUE) - $this->_startTime;
-            $fileData                   = array(
-                'file' => $classFile,
-                'time' => $currentTime * 1000,
-            );
-            $this->_filesRequireFiles[] = $fileData;
-
-            require_once $classFile;
         }
 
         /**
