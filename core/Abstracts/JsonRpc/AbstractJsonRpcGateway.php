@@ -211,17 +211,33 @@ namespace Processus\Abstracts\JsonRpc
 
             }
 
-            return false;
+            return FALSE;
         }
 
         // #########################################################
 
+        /**
+         * @param \Processus\Interfaces\InterfaceAuthModule $authModule
+         *
+         * @return AbstractJsonRpcGateway
+         */
+        public function setAuthModule(\Processus\Interfaces\InterfaceAuthModule $authModule)
+        {
+            $this->_authModule = $authModule;
+            return $this;
+        }
 
         /**
-         * @return null | \Processus\Interfaces\InterfaceAuthModule
+         * @return null|\Processus\Interfaces\InterfaceAuthModule
+         * @throws \Exception
          */
         public function getAuthModule()
         {
+            if($this->_authModule)
+            {
+                return $this->_authModule;
+            }
+
             $authClass  = $this->getConfigValue('namespace') . "\\" . "Auth";
             $authFile   = str_replace("\\", "/", $this->getConfigValue('namespace') . "\\" . "Auth");
             $classExist = file_exists(PATH_APP . "/" . $authFile . '.php');
@@ -236,14 +252,13 @@ namespace Processus\Abstracts\JsonRpc
 
                     return $this->_authModule;
                 }
-                catch (\Exception $error)
-                {
+                catch (\Exception $error) {
                     throw $error;
                 }
 
             }
 
-            return null;
+            return NULL;
         }
 
         // #########################################################
