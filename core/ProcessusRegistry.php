@@ -33,11 +33,13 @@ namespace Processus
 
             if (isset($host))
             {
-                $this->config = new Config(require PATH_APP . $configRoot . $host);
+                $configPath = PATH_APP . $configRoot . $host;
             }
             {
-                $this->config = new Config(require PATH_APP . $configRoot . 'config.php');
+                $configPath = PATH_APP . $configRoot . 'config.php';
             }
+
+            $this->config = new Config($configPath);
 
         }
 
