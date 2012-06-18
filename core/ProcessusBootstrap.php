@@ -78,9 +78,9 @@ namespace Processus
 
                 // setup autoloader
                 spl_autoload_register(array(
-                                           $this,
-                                           '_autoLoad'
-                                      ));
+                    $this,
+                    '_autoLoad'
+                ));
 
                 // display errors for the following part
                 ini_set('display_errors', '1');
@@ -88,20 +88,19 @@ namespace Processus
                 error_reporting(E_ALL | E_STRICT);
 
                 set_error_handler(array(
-
-                                       "Processus\\ProcessusBootstrap",
-                                       'handleError'
-                                  ));
+                    "Processus\\ProcessusBootstrap",
+                    'handleError'
+                ));
 
                 register_shutdown_function(array(
-                                                "Processus\\ProcessusBootstrap",
-                                                'handleError'
-                                           ));
+                    "Processus\\ProcessusBootstrap",
+                    'handleError'
+                ));
 
                 set_exception_handler(array(
-                                           "Processus\\ProcessusBootstrap",
-                                           'handleError'
-                                      ));
+                    "Processus\\ProcessusBootstrap",
+                    'handleError'
+                ));
 
                 //ini_set('display_errors', '0');
 
@@ -134,9 +133,7 @@ namespace Processus
 
                 return $this;
 
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 echo json_encode($e);
                 return FALSE;
             }
