@@ -39,7 +39,7 @@ namespace Processus
                 $configPath = PATH_APP . $configRoot . 'config.php';
             }
 
-            $this->config = new Config($configPath);
+            $this->config = new Config(require $configPath);
 
         }
 
