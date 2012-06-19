@@ -35,6 +35,21 @@ namespace Processus\Lib\Vo\Configs
          */
         private $_applicationConfig;
 
+        /**
+         * @var \Processus\Lib\Vo\Configs\CookieMonsterConfig
+         */
+        private $_cookieMonsterConfig;
+
+        public function getCookieMonsterConfig()
+        {
+            if(!$this->_cookieMonsterConfig)
+            {
+                $this->_cookieMonsterConfig = new CookieMonsterConfig();
+                $this->_cookieMonsterConfig->setData($this->getValueByKey("cookieMonster"));
+            }
+
+            return $this->_cookieMonsterConfig;
+        }
 
         /**
          * @return \Processus\Lib\Vo\Configs\CouchbaseConfig
