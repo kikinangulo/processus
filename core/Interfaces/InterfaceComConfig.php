@@ -1,32 +1,34 @@
 <?php
-namespace Processus\Interfaces
-{
 
-    interface InterfaceComConfig
+    namespace Processus\Interfaces
     {
 
-        public function getFromCache();
+        interface InterfaceComConfig
+        {
 
-        public function getSqlUpdateConditions();
+            public function getFromCache();
 
-        public function getSqlTableName();
+            public function getSqlUpdateConditions();
 
-        public function getSqlStmt();
+            public function getSqlTableName();
 
-        public function getSqlParams();
+            public function getSqlStmt();
 
-        public function getExpiredTime();
-        
-        public function getMemId();
+            public function getSqlParams();
 
-        /**
-         * @abstract
-         * @return \Processus\Interfaces\InterfaceDatabase
-         */
-        public function getConnector();
+            public function getInsertIgnore();
 
-        public function setConnector(InterfaceDatabase $_connector);
-    
+            public function getExpiredTime();
+
+            public function getMemId();
+
+            /**
+             * @abstract
+             * @return \Processus\Interfaces\InterfaceDatabase
+             */
+            public function getConnector();
+
+            public function setConnector(InterfaceDatabase $_connector);
+
+        }
     }
-}
-?>
