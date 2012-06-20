@@ -113,7 +113,7 @@ namespace Processus\Lib\Db
          */
         public function getMultipleByKey(array $keys)
         {
-            $stupidPHP = null;
+            $stupidPHP = NULL;
             return $this->_memcachedClient->getMulti($keys, $stupidPHP, \Memcached::GET_PRESERVE_ORDER);
         }
 
@@ -146,6 +146,7 @@ namespace Processus\Lib\Db
         /**
          * @param $key
          * @param $value
+         *
          * @return bool
          */
         public function append($key, $value)

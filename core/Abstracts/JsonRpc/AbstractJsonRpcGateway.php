@@ -235,6 +235,7 @@ namespace Processus\Abstracts\JsonRpc
         {
             if($this->_authModule)
             {
+                $this->_authModule->setAuthData($this->getRequest());
                 return $this->_authModule;
             }
 

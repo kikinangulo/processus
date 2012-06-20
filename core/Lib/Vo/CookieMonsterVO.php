@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Lib\Vo;
-class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Processus\Interfaces\InterfaceCookieMonster
+class CookieMonsterVO extends \Processus\Abstracts\Vo\AbstractVO implements \Processus\Interfaces\InterfaceCookieMonster
 {
 
     /**
@@ -18,7 +18,8 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function setCookieName($name)
     {
-        // TODO: Implement setCookieName() method.
+        $this->setValueByKey("cookieName", $name);
+        return $this;
     }
 
     /**
@@ -26,7 +27,7 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function getCookieName()
     {
-        // TODO: Implement getCookieName() method.
+        return $this->getValueByKey("cookieName");
     }
 
     /**
@@ -37,7 +38,8 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function setCookieData($data)
     {
-        // TODO: Implement setCookieData() method.
+        $this->setValueByKey("coookieData", $data);
+        return $this;
     }
 
     /**
@@ -45,7 +47,7 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function getCookieData()
     {
-        // TODO: Implement getCookieData() method.
+        return $this->getValueByKey("coookieData");
     }
 
     /**
@@ -56,7 +58,8 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function setExpiredTime($expiredTime)
     {
-        // TODO: Implement setExpiredTime() method.
+        $this->setValueByKey('expiredTime', $expiredTime);
+        return $this;
     }
 
     /**
@@ -64,7 +67,7 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function getExpiredTime()
     {
-        // TODO: Implement getExpiredTime() method.
+        return $this->getValueByKey('expiredTime');
     }
 
     /**
@@ -75,7 +78,8 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function setHashAlgo($hashAlgo)
     {
-        // TODO: Implement setHashAlgo() method.
+        $this->setValueByKey("hashAlgo", $hashAlgo);
+        return $this;
     }
 
     /**
@@ -83,7 +87,7 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function getHashAlgo()
     {
-        // TODO: Implement getHashAlgo() method.
+        return $this->getValueByKey("hashAlgo");
     }
 
     /**
@@ -94,7 +98,8 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function setDomain($domain)
     {
-        // TODO: Implement setDomain() method.
+        $this->setValueByKey("domain", $domain);
+        return $this;
     }
 
     /**
@@ -102,7 +107,7 @@ class CookieMonsterVo extends \Processus\Abstracts\Vo\AbstractVO implements \Pro
      */
     public function getDomain()
     {
-        // TODO: Implement getDomain() method.
+        return $this->getValueByKey("domain");
     }
 
     /**
