@@ -88,20 +88,19 @@ namespace Processus
                 error_reporting(E_ALL | E_STRICT);
 
                 set_error_handler(array(
-
-                                       "Processus\\ProcessusBootstrap",
-                                       'handleError'
-                                  ));
+                    "Processus\\ProcessusBootstrap",
+                    'handleError'
+                ));
 
                 register_shutdown_function(array(
-                                                "Processus\\ProcessusBootstrap",
-                                                'handleError'
-                                           ));
+                    "Processus\\ProcessusBootstrap",
+                    'handleError'
+                ));
 
                 set_exception_handler(array(
-                                           "Processus\\ProcessusBootstrap",
-                                           'handleError'
-                                      ));
+                    "Processus\\ProcessusBootstrap",
+                    'handleError'
+                ));
 
                 //ini_set('display_errors', '0');
 

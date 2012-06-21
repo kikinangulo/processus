@@ -28,7 +28,19 @@ namespace Processus
          */
         public function init()
         {
-            $this->config = new Config(require PATH_APP . '/Application/Config/config.php');
+            $host       = \Processus\Lib\Server\ServerInfo::getInstance()->getHttpHost();
+            $configRoot = '/Application/Config/';
+
+            if (isset($host))
+            {
+                $configPath = PATH_APP . $configRoot . $host;
+            }
+            {
+                $configPath = PATH_APP . $configRoot . 'config.php';
+            }
+
+            $this->config = new Config(require $configPath);
+
         }
 
         // #########################################################

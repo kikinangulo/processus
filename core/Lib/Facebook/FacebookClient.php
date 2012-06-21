@@ -61,6 +61,15 @@ namespace Processus\Lib\Facebook
         /**
          * @return mixed
          */
+        public function getAppSecretId()
+        {
+            $fbConfig = $this->getFacebookClientConfig();
+            return $fbConfig['secret'];
+        }
+
+        /**
+         * @return mixed
+         */
         protected function getFacebookClientConfig()
         {
             if (!$this->_facebookSdkConf) {

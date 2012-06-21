@@ -40,7 +40,7 @@ namespace Processus\Lib\Server
         /**
          * @return mixeds
          */
-        public function getHttpPost()
+        public function getHttpHost()
         {
             return $this->getValueByKey('HTTP_HOST');
         }

@@ -10,6 +10,9 @@ namespace Processus\Exceptions
 {
     class ProcessusException extends \Processus\Abstracts\AbstractException
     {
-
+        public function __construct($message = "", $code = 1000, $severity = 10, $filename = __FILE__, $lineno = __LINE__, $previous = array())
+        {
+            parent::__construct("Processus Exception.", $code, $severity, $filename, $lineno, $previous);
+        }
     }
 }

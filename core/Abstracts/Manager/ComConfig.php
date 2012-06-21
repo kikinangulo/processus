@@ -22,12 +22,14 @@ namespace Processus\Abstracts\Manager
 
         private $_expiredTime = 1;
 
+        private $_insertIgnore = FALSE;
+
         /**
          * @var \Processus\Interfaces\InterfaceDatabase
          */
-        private $_connector = null;
+        private $_connector = NULL;
 
-        private $_sqlTableName = null;
+        private $_sqlTableName = NULL;
 
         // #########################################################
 
@@ -252,6 +254,28 @@ namespace Processus\Abstracts\Manager
 
 
         /**
+         * @param bool $insertIgnore
+         *
+         * @return ComConfig
+         */
+        public function setInsertIgnore($insertIgnore)
+        {
+            $this->_insertIgnore = $insertIgnore;
+            return $this;
+        }
+
+        /**
+         * @return bool
+         */
+        public function getInsertIgnore()
+        {
+            return $this->_insertIgnore;
+        }
+
+        // #########################################################
+
+
+        /**
          * @param $_expiredTime
          *
          * @return \Processus\Abstracts\Manager\ComConfig
@@ -262,7 +286,7 @@ namespace Processus\Abstracts\Manager
             return $this;
         }
 
-        // #########################################################        
+        // #########################################################
 
 
         /**
@@ -275,9 +299,5 @@ namespace Processus\Abstracts\Manager
             $this->_connector = $_connector;
             return $this;
         }
-
-        // #########################################################
-
     }
 }
-?>
